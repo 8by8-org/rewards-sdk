@@ -7,6 +7,7 @@ export type {
   GetRewardsOpts,
   RewardsCursor,
 } from "./i-rewards-service";
+export type { IServer } from "./i-server";
 export type {
   IVoucher,
   IBaseVoucher,
@@ -14,5 +15,7 @@ export type {
   ILinkVoucher,
   IManualVoucher,
 } from "./i-voucher";
+export { RedemptionForumFilter } from "./redemption-forum-filter";
 export { RedemptionForum } from "./redemption-forum";
 export { RedemptionMethod } from "./redemption-method";
+export { SortOrder } from "./sort-order";

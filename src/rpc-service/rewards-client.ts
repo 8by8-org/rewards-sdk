@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { API_ROUTES } from "../constants";
+import { BaseServer } from "./base-server";
 import { contextualizedRewardSchema, voucherSchema } from "../schema";
-import { provideAPIKeyToRequest } from "../util";
 import type {
   IRewardsService,
   GetRewardsOpts,
@@ -24,39 +23,50 @@ export class RewardsClient implements IRewardsService {
   }
 
   async getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]> {
-    const data = await this.executeRemoteProcedure(API_ROUTES.getRewards, opts);
+    const data = await this.executeRemoteProcedure(
+      BaseServer.ROUTES.getRewards,
+      opts
+    );
     const parsed = contextualizedRewardSchema.array().parse(data);
     return parsed;
   }
 
   async getAllRewardCategories(): Promise<string[]> {
     const data = await this.executeRemoteProcedure(
-      API_ROUTES.getAllRewardCategories
+      BaseServer.ROUTES.getAllRewardCategories
     );
     const parsed = z.string().array().parse(data);
     return parsed;
   }
 
   async claimReward(rewardId: string): Promise<IVoucher[]> {
-    const data = await this.executeRemoteProcedure(API_ROUTES.claimReward, {
-      rewardId,
-    });
+    const data = await this.executeRemoteProcedure(
+      BaseServer.ROUTES.claimReward,
+      {
+        rewardId,
+      }
+    );
     const parsed = voucherSchema.array().parse(data);
     return parsed;
   }
 
   private async executeRemoteProcedure(
-    route: (typeof API_ROUTES)[keyof typeof API_ROUTES],
+    route: (typeof BaseServer.ROUTES)[keyof typeof BaseServer.ROUTES],
     body?: object
   ) {
     const endpoint = this.apiUrl + "/" + route;
 
-    let requestParams: RequestInit = {
+    const requestParams: RequestInit = {
       method: "POST",
     };
 
     if (this.apiKey) {
-      requestParams = provideAPIKeyToRequest(this.apiKey, requestParams);
+      const authHeaderValue =
+        BaseServer.AUTHORIZATION_SCHEME + " " + this.apiKey;
+
+      requestParams.headers = {
+        [BaseServer.AUTHORIZATION_HEADER]: authHeaderValue,
+      };
     }
 
     if (body) {
