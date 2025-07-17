@@ -43,9 +43,9 @@ export abstract class BaseServer implements IServer {
   }
 
   protected initRoutes(): void {
-    this.app.post(BaseServer.ROUTES.getRewards, async (req, res) => {
+    this.app.get(BaseServer.ROUTES.getRewards, async (req, res) => {
       try {
-        const data = req.body;
+        const data = req.params;
         const parsedData = getRewardsParamsSchema.parse(data);
         const rewards = await this.rewardsService.getRewards(parsedData);
         res.json(rewards);
@@ -58,7 +58,7 @@ export abstract class BaseServer implements IServer {
       }
     });
 
-    this.app.post(
+    this.app.get(
       BaseServer.ROUTES.getAllRewardCategories,
       async (_req, res) => {
         try {
