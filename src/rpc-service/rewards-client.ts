@@ -1,90 +1,104 @@
-import { object, z } from "zod";
-import { BaseServer } from "./base-server";
-import { contextualizedRewardSchema, voucherSchema } from "../schema";
+import { z } from "zod";
+import qs from "query-string";
+import { AuthorizationHeaderConverter } from "./authorization-header-converter";
+import { QueryParamsConverter } from "./query-params-converter";
+import { API_ROUTES } from "../constants/api-routes";
+import { HTTPError } from "./http-error";
 import type {
-  IRewardsService,
   GetRewardsOpts,
   IContextualizedReward,
+  IRewardsService,
   IVoucher,
 } from "../model";
-
-interface RewardsClientConstructorParams {
-  apiUrl: string;
-  apiKey?: string;
-}
+import { contextualizedRewardSchema, voucherSchema } from "../schema";
 
 export class RewardsClient implements IRewardsService {
-  private readonly apiUrl: string;
-  private readonly apiKey: string | undefined;
-
-  constructor({ apiUrl, apiKey }: RewardsClientConstructorParams) {
-    this.apiUrl = apiUrl;
-    this.apiKey = apiKey;
-  }
+  constructor(private apiUrl: string, private apiKey?: string) {}
 
   async getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]> {
-    let endpoint = this.apiUrl + "/" + BaseServer.ROUTES.getRewards;
+    const queryParams = opts ? QueryParamsConverter.toQueryParams(opts) : {};
+    const queryString = qs.stringify(queryParams);
+    const endPoint = `${this.apiUrl}/${API_ROUTES.getRewards}${queryString}`;
 
-    if (opts && Object.keys(opts).length > 1) {
-      const queryParams: string[] = [];
-
-      Object.entries(opts).forEach(([opt, value]) => {
-        if (typeof value === "object") {
-          value = JSON.stringify(value);
-        }
-        opt = encodeURIComponent(opt);
-        value = encodeURIComponent(value);
-        const queryParam = opt + "=" + value;
-        queryParams.push(queryParam);
-      });
-
-      const queryString = "?" + queryParams.join("&");
-      endpoint += queryString;
-    }
-
-    const request = this.createAPIRequest("GET");
-    const response = await fetch(endpoint, request);
-    const data = await response.json();
-    const parsed = contextualizedRewardSchema.array().parse(data);
-    return parsed;
-  }
-
-  async getAllRewardCategories(): Promise<string[]> {
-    const endpoint =
-      this.apiUrl + "/" + BaseServer.ROUTES.getAllRewardCategories;
-    const request = this.createAPIRequest("GET");
-    const response = await fetch(endpoint, request);
-    const data = await response.json();
-    const parsed = z.string().array().parse(data);
-    return parsed;
-  }
-
-  async claimReward(rewardId: string): Promise<IVoucher[]> {
-    const endpoint = this.apiUrl + "/" + BaseServer.ROUTES.claimReward;
-    const request = this.createAPIRequest("POST", {
-      rewardId,
-    });
-    const response = await fetch(endpoint, request);
-    const data = await response.json();
-    const parsed = voucherSchema.array().parse(data);
-    return parsed;
-  }
-
-  private createAPIRequest(method: string, body?: object): RequestInit {
     const request: RequestInit = {
-      method,
+      method: "GET",
     };
 
     if (this.apiKey) {
-      request.headers = {
-        [BaseServer.AUTHORIZATION_HEADER]: `${BaseServer.AUTHORIZATION_SCHEME} ${this.apiKey}`,
-      };
+      request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
+        this.apiKey
+      );
     }
 
-    if (body) {
-      request.body = JSON.stringify(body);
+    const response = await fetch(endPoint, request);
+
+    if (response.ok) {
+      const data = await response.json();
+      const parsed = contextualizedRewardSchema.array().parse(data);
+      return parsed;
+    } else {
+      throw new HTTPError(
+        "Failed to retrieve rewards.",
+        response.status,
+        response.statusText
+      );
+    }
+  }
+
+  async getAllRewardCategories(): Promise<string[]> {
+    const endPoint = `${this.apiUrl}/${API_ROUTES.getAllRewardCategories}`;
+
+    const request: RequestInit = {
+      method: "GET",
+    };
+
+    if (this.apiKey) {
+      request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
+        this.apiKey
+      );
     }
 
-    return request;
+    const response = await fetch(endPoint, request);
+
+    if (response.ok) {
+      const data = await response.json();
+      const parsed = z.string().array().parse(data);
+      return parsed;
+    } else {
+      throw new HTTPError(
+        "Failed to retrieve reward categories.",
+        response.status,
+        response.statusText
+      );
+    }
+  }
+
+  async claimReward(rewardId: string): Promise<IVoucher[]> {
+    const endPoint = `${this.apiUrl}/${API_ROUTES.claimReward}`;
+
+    const request: RequestInit = {
+      method: "POST",
+      body: JSON.stringify({ rewardId }),
+    };
+
+    if (this.apiKey) {
+      request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
+        this.apiKey
+      );
+    }
+
+    const response = await fetch(endPoint, request);
+
+    if (response.ok) {
+      const data = await response.json();
+      const parsed = voucherSchema.array().parse(data);
+      return parsed;
+    } else {
+      throw new HTTPError(
+        "Failed to claim reward.",
+        response.status,
+        response.statusText
+      );
+    }
   }
 }

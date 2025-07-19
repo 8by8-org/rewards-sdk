@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["ESNext"],
+    "strict": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "files": ["src/index.ts"]
+}

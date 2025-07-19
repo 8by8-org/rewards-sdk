@@ -7,7 +7,6 @@ export type {
   GetRewardsOpts,
   RewardsCursor,
 } from "./i-rewards-service";
-export type { IServer } from "./i-server";
 export type {
   IVoucher,
   IBaseVoucher,
