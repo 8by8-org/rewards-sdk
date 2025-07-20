@@ -9,11 +9,7 @@ import {
   RewardsClient,
 } from '../../rpc';
 import { Observable } from 'rxjs';
-import {
-  GetRewardsOpts,
-  type IContextualizedReward,
-  type IVoucher,
-} from '../../model';
+import type { IContextualizedReward, IVoucher } from '../../model';
 import { API_ROUTES } from '../../constants';
 
 describe('AppController (e2e)', () => {
@@ -34,15 +30,13 @@ describe('AppController (e2e)', () => {
 
     @UseGuards(DerivedRewardsGuard)
     class DerivedRewardsController extends BaseRewardsController {
-      protected _getRewards(
-        _opts?: GetRewardsOpts,
-      ): Promise<IContextualizedReward[]> {
+      protected _getRewards(): Promise<IContextualizedReward[]> {
         return Promise.resolve([]);
       }
       protected _getAllRewardCategories(): Promise<string[]> {
         return Promise.resolve([]);
       }
-      protected _claimReward(_rewardId: string): Promise<IVoucher[]> {
+      protected _claimReward(): Promise<IVoucher[]> {
         return Promise.resolve([]);
       }
     }

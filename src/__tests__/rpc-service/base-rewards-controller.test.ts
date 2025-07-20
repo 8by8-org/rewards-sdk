@@ -3,9 +3,7 @@ import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BaseRewardsController } from '../../rpc';
 import {
-  RedemptionForumFilter,
   RedemptionMethod,
-  SortOrder,
   type GetRewardsOpts,
   type IContextualizedReward,
   type IVoucher,
