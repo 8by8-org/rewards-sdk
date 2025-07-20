@@ -84,7 +84,7 @@ export  class  RewardsController  extends  BaseRewardsController {
   protected  _getRewards(
     opts?:  GetRewardsOpts,
   ):  Promise<IContextualizedReward[]> {
-	// logic for retrieving rewards
+    // logic for retrieving rewards
   }
 
   protected  _getAllRewardCategories():  Promise<string[]> {
