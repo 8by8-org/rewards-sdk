@@ -1,15 +1,26 @@
-import type { RedemptionForum } from './redemption-forum';
+import type { IReward } from './i-reward';
 
-export interface IRewardWithPartnerData {
-  id: string;
-  partnerId: string;
-  shortDescription: string;
-  redemptionForums: RedemptionForum[];
-  categories: string[];
-  longDescription?: string;
-  expirationDate?: Date;
+/**
+ * A reward object populated with information about the partner offering the
+ * reward.
+ */
+export interface IRewardWithPartnerData extends IReward {
+  /**
+   * The human-readable name of the partner offering this reward.
+   */
   partnerName: string;
+  /**
+   * A description of the partner offering this reward. Formatted as markdown.
+   * Optional.
+   */
   partnerDescription: string;
+  /**
+   * The url of the website of the partner offering this reward. Optional.
+   */
   partnerWebsite?: string;
+  /**
+   * A description of why the partner offering this reward supports the 8by8
+   * cause. Formatted as markdown. Optional.
+   */
   partnerWhy8by8?: string;
 }
