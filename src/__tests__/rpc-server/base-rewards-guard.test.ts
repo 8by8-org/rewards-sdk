@@ -27,7 +27,7 @@ describe('AppController (e2e)', () => {
 
     @UseGuards(DerivedRewardsGuard)
     class DerivedRewardsController extends BaseRewardsController {
-      protected _getRewards(): Promise<IContextualizedReward[]> {
+      protected _getContextualizedRewards(): Promise<IContextualizedReward[]> {
         return Promise.resolve([]);
       }
       protected _getAllRewardCategories(): Promise<string[]> {
@@ -50,9 +50,9 @@ describe('AppController (e2e)', () => {
     const apiUrl = await app.getUrl();
     const apiKey = faker.string.alpha();
     const rewardsClient = new RewardsClient(apiUrl, apiKey);
-    await rewardsClient.getRewards();
+    await rewardsClient.getContextualizedRewards();
     expect(canActivate).toHaveBeenCalledWith(
-      '/' + API_ROUTES.getRewards,
+      '/' + API_ROUTES.getContextualizedRewards,
       apiKey,
     );
     await app.close();
@@ -67,9 +67,9 @@ describe('AppController (e2e)', () => {
     const apiUrl = await app.getUrl();
     const apiKey = faker.string.alpha();
     const rewardsClient = new RewardsClient(apiUrl, apiKey);
-    await rewardsClient.getRewards();
+    await rewardsClient.getContextualizedRewards();
     expect(canActivate).toHaveBeenCalledWith(
-      '/' + API_ROUTES.getRewards,
+      '/' + API_ROUTES.getContextualizedRewards,
       apiKey,
     );
     await app.close();

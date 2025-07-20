@@ -2,14 +2,14 @@ import { faker } from '@faker-js/faker';
 import {
   RedemptionForumFilter,
   SortOrder,
-  type GetRewardsOpts,
+  type GetContextualizedRewardsOpts,
 } from '../../model';
 import { fakeCategories } from './fake-categories';
 
 export function createRandomOptsObject(
-  opts?: Partial<GetRewardsOpts>,
-): GetRewardsOpts {
-  const randomOpts: GetRewardsOpts = {
+  opts?: Partial<GetContextualizedRewardsOpts>,
+): GetContextualizedRewardsOpts {
+  const randomOpts: GetContextualizedRewardsOpts = {
     redemptionForumFilter: faker.helpers.arrayElement(
       Object.values(RedemptionForumFilter),
     ),

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { RedemptionForumFilter, SortOrder } from '../model';
 
-export const getRewardsParamsSchema = z.object({
+export const getContextualizedRewardsParamsSchema = z.object({
   redemptionForumFilter: z.enum(RedemptionForumFilter).optional(),
   sortOrder: z.enum(SortOrder).optional(),
   userLatitude: z.coerce.number().optional(),

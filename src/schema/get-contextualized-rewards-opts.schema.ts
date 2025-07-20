@@ -3,7 +3,7 @@ import { RedemptionForumFilter, SortOrder } from '../model';
 import { pointSchema } from './point-schema';
 import { rewardsCursorSchema } from './rewards-cursor-schema';
 
-export const getRewardsOptsSchema = z.object({
+export const getContextualizedRewardsOptsSchema = z.object({
   redemptionForumFilter: z.enum(RedemptionForumFilter).optional(),
   sortOrder: z.enum(SortOrder).optional(),
   userLocation: pointSchema.optional(),

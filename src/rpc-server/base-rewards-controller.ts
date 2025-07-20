@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Query, Body } from '@nestjs/common';
-import { GetRewardsOptsPipe } from './get-rewards-opts-pipe';
+import { GetContextualizedRewardsOptsPipe } from './get-contextualized-rewards-opts-pipe';
 import { API_ROUTES } from '../constants';
 import type {
-  GetRewardsOpts,
+  GetContextualizedRewardsOpts,
   IContextualizedReward,
   IRewardsService,
   IVoucher,
@@ -10,17 +10,18 @@ import type {
 
 @Controller()
 export abstract class BaseRewardsController implements IRewardsService {
-  protected abstract _getRewards(
-    opts?: GetRewardsOpts,
+  protected abstract _getContextualizedRewards(
+    opts?: GetContextualizedRewardsOpts,
   ): Promise<IContextualizedReward[]>;
   protected abstract _getAllRewardCategories(): Promise<string[]>;
   protected abstract _claimReward(rewardId: string): Promise<IVoucher[]>;
 
-  @Get(API_ROUTES.getRewards)
-  async getRewards(
-    @Query(new GetRewardsOptsPipe()) opts?: GetRewardsOpts,
+  @Get(API_ROUTES.getContextualizedRewards)
+  async getContextualizedRewards(
+    @Query(new GetContextualizedRewardsOptsPipe())
+    opts?: GetContextualizedRewardsOpts,
   ): Promise<IContextualizedReward[]> {
-    const rewards = await this._getRewards(opts);
+    const rewards = await this._getContextualizedRewards(opts);
     return rewards;
   }
 

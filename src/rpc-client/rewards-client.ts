@@ -5,7 +5,7 @@ import { QueryParamsConverter } from '../rpc-shared/query-params-converter';
 import { API_ROUTES } from '../constants';
 import { HttpError } from './http-error';
 import type {
-  GetRewardsOpts,
+  GetContextualizedRewardsOpts,
   IContextualizedReward,
   IRewardsService,
   IVoucher,
@@ -18,10 +18,12 @@ export class RewardsClient implements IRewardsService {
     private apiKey?: string,
   ) {}
 
-  async getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]> {
+  async getContextualizedRewards(
+    opts?: GetContextualizedRewardsOpts,
+  ): Promise<IContextualizedReward[]> {
     const queryParams = opts ? QueryParamsConverter.toQueryParams(opts) : {};
     const queryString = qs.stringify(queryParams);
-    const endPoint = `${this.apiUrl}/${API_ROUTES.getRewards}?${queryString}`;
+    const endPoint = `${this.apiUrl}/${API_ROUTES.getContextualizedRewards}?${queryString}`;
 
     const request: RequestInit = {
       method: 'GET',

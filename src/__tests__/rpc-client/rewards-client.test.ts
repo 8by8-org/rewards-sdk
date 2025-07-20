@@ -17,20 +17,20 @@ import { API_ROUTES } from '../../constants';
 import { RedemptionMethod, type IContextualizedReward } from '../../model';
 
 describe('RewardsClient', () => {
-  it('makes a GET request when getRewards is called.', async () => {
+  it('makes a GET request when getContextualizedRewards is called.', async () => {
     const mock = mockFetch({
       ok: true,
       json: () => Promise.resolve([]),
     });
 
     const rewardsClient = new RewardsClient(faker.internet.url());
-    await rewardsClient.getRewards();
+    await rewardsClient.getContextualizedRewards();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
     });
   });
 
-  it('returns an array of rewards when getRewards successfully fetches such an array.', async () => {
+  it('returns an array of rewards when getContextualizedRewards successfully fetches such an array.', async () => {
     const expectedRewards: IContextualizedReward[] = [
       ...(function* () {
         for (let i = 0; i < 10; i++) {
@@ -45,11 +45,11 @@ describe('RewardsClient', () => {
     });
 
     const rewardsClient = new RewardsClient(faker.internet.url());
-    const actualRewards = await rewardsClient.getRewards();
+    const actualRewards = await rewardsClient.getContextualizedRewards();
     expect(actualRewards).toEqual(expectedRewards);
   });
 
-  it('fetches rewards with a query string that has been converted from a GetRewardsOpts object.', async () => {
+  it('fetches rewards with a query string that has been converted from a GetContextualizedRewardsOpts object.', async () => {
     const mock = mockFetch({
       ok: true,
       json: () => Promise.resolve([]),
@@ -59,13 +59,13 @@ describe('RewardsClient', () => {
     const queryObject = QueryParamsConverter.toQueryParams(opts);
     const queryString = qs.stringify(queryObject);
     const apiUrl = faker.internet.url();
-    const fullPath = `${apiUrl}/${API_ROUTES.getRewards}?${queryString}`;
+    const fullPath = `${apiUrl}/${API_ROUTES.getContextualizedRewards}?${queryString}`;
     const rewardsClient = new RewardsClient(apiUrl);
-    await rewardsClient.getRewards(opts);
+    await rewardsClient.getContextualizedRewards(opts);
     expect(mock).toHaveBeenCalledWith(fullPath, expect.any(Object));
   });
 
-  it('includes the API key in the request headers when getRewards is called.', async () => {
+  it('includes the API key in the request headers when getContextualizedRewards is called.', async () => {
     const mock = mockFetch({
       ok: true,
       json: () => Promise.resolve([]),
@@ -73,21 +73,21 @@ describe('RewardsClient', () => {
 
     const apiKey = faker.string.alpha();
     const rewardsClient = new RewardsClient(faker.internet.url(), apiKey);
-    await rewardsClient.getRewards();
+    await rewardsClient.getContextualizedRewards();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
       headers: AuthorizationHeaderConverter.toHeaderFromAPIKey(apiKey),
     });
   });
 
-  it('throws an error when getRewards is called and the response from the server is not ok.', async () => {
+  it('throws an error when getContextualizedRewards is called and the response from the server is not ok.', async () => {
     mockFetch({
       ok: false,
       status: 403,
       statusText: 'Forbidden',
     });
     const rewardsClient = new RewardsClient(faker.internet.url());
-    await expect(rewardsClient.getRewards()).rejects.toThrow();
+    await expect(rewardsClient.getContextualizedRewards()).rejects.toThrow();
   });
 
   it('makes a GET request when getAllRewardCategories is called.', async () => {

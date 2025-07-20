@@ -4,7 +4,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BaseRewardsController } from '../../rpc-server';
 import {
   RedemptionMethod,
-  type GetRewardsOpts,
+  type GetContextualizedRewardsOpts,
   type IContextualizedReward,
   type IVoucher,
 } from '../../model';
@@ -17,20 +17,20 @@ import {
 
 describe('BaseRewardsController', () => {
   let rewardsController: BaseRewardsController;
-  let getRewards: Mock;
+  let getContextualizedRewards: Mock;
   let getAllRewardCategories: Mock;
   let claimReward: Mock;
 
   beforeEach(async () => {
-    getRewards = vi.fn();
+    getContextualizedRewards = vi.fn();
     getAllRewardCategories = vi.fn();
     claimReward = vi.fn();
 
     class DerivedRewardsController extends BaseRewardsController {
-      protected _getRewards(
-        opts?: GetRewardsOpts,
+      protected _getContextualizedRewards(
+        opts?: GetContextualizedRewardsOpts,
       ): Promise<IContextualizedReward[]> {
-        return getRewards(opts);
+        return getContextualizedRewards(opts);
       }
       protected _getAllRewardCategories(): Promise<string[]> {
         return getAllRewardCategories();
@@ -49,10 +49,10 @@ describe('BaseRewardsController', () => {
     );
   });
 
-  it('passes opts to the _getRewards method of the derived class.', async () => {
+  it('passes opts to the _getContextualizedRewards method of the derived class.', async () => {
     const opts = createRandomOptsObject();
-    await rewardsController.getRewards(opts);
-    expect(getRewards).toHaveBeenCalledWith(opts);
+    await rewardsController.getContextualizedRewards(opts);
+    expect(getContextualizedRewards).toHaveBeenCalledWith(opts);
   });
 
   it('passes the rewardId to the _claimReward method of the derived class.', async () => {
@@ -61,7 +61,7 @@ describe('BaseRewardsController', () => {
     expect(claimReward).toHaveBeenCalledWith(rewardId);
   });
 
-  it('returns the rewards returned by the _getRewards method of the derived class.', async () => {
+  it('returns the rewards returned by the _getContextualizedRewards method of the derived class.', async () => {
     const expectedRewards: IContextualizedReward[] = [
       ...(function* () {
         for (let i = 0; i < 10; i++) {
@@ -70,8 +70,8 @@ describe('BaseRewardsController', () => {
       })(),
     ];
 
-    getRewards.mockResolvedValueOnce(expectedRewards);
-    const actualRewards = await rewardsController.getRewards();
+    getContextualizedRewards.mockResolvedValueOnce(expectedRewards);
+    const actualRewards = await rewardsController.getContextualizedRewards();
     expect(actualRewards).toEqual(expectedRewards);
   });
 

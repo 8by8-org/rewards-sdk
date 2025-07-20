@@ -4,7 +4,7 @@ export type { IPoint } from './i-point';
 export type { IReward } from './i-reward';
 export type {
   IRewardsService,
-  GetRewardsOpts,
+  GetContextualizedRewardsOpts,
   RewardsCursor,
 } from './i-rewards-service';
 export type {

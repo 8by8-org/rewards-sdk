@@ -1,11 +1,11 @@
 import { z } from 'zod';
-import { getRewardsParamsSchema } from '../schema';
-import type { GetRewardsOpts } from '../model';
+import { getContextualizedRewardsParamsSchema } from '../schema';
+import type { GetContextualizedRewardsOpts } from '../model';
 
 export class QueryParamsConverter {
   static toQueryParams(
-    opts: GetRewardsOpts,
-  ): z.infer<typeof getRewardsParamsSchema> {
+    opts: GetContextualizedRewardsOpts,
+  ): z.infer<typeof getContextualizedRewardsParamsSchema> {
     const queryParams = {
       redemptionForumFilter: opts.redemptionForumFilter,
       sortOrder: opts.sortOrder,
@@ -22,10 +22,13 @@ export class QueryParamsConverter {
     return queryParams;
   }
 
-  static toGetRewardsOpts(queryParams: object): GetRewardsOpts {
-    const parsedQueryParams = getRewardsParamsSchema.parse(queryParams);
+  static toGetContextualizedRewardsOpts(
+    queryParams: object,
+  ): GetContextualizedRewardsOpts {
+    const parsedQueryParams =
+      getContextualizedRewardsParamsSchema.parse(queryParams);
 
-    const opts: GetRewardsOpts = {
+    const opts: GetContextualizedRewardsOpts = {
       redemptionForumFilter: parsedQueryParams.redemptionForumFilter,
       sortOrder: parsedQueryParams.sortOrder,
       userCoordinates:

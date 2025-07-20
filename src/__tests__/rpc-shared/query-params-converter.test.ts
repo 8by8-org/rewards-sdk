@@ -1,17 +1,19 @@
 import { describe, it, expect } from 'vitest';
 import { QueryParamsConverter } from '../../rpc-shared';
-import { getRewardsParamsSchema } from '../../schema';
-import { getRewardsOptsSchema } from '../../schema';
+import { getContextualizedRewardsParamsSchema } from '../../schema';
+import { getContextualizedRewardsOptsSchema } from '../../schema';
 import {
   createRandomOptsObject,
   createRandomQueryParamsObject,
 } from '../../util/testing';
 
 describe('QueryParamsConverter', () => {
-  it('converts a GetRewardsOpts object into a query params object.', () => {
+  it('converts a GetContextualizedRewardsOpts object into a query params object.', () => {
     const opts = createRandomOptsObject();
     const converted = QueryParamsConverter.toQueryParams(opts);
-    expect(getRewardsParamsSchema.safeParse(converted).success).toBe(true);
+    expect(
+      getContextualizedRewardsParamsSchema.safeParse(converted).success,
+    ).toBe(true);
 
     for (const [key, value] of Object.entries(converted)) {
       if (
@@ -35,10 +37,13 @@ describe('QueryParamsConverter', () => {
     expect(converted.rewardIdCursor).toBe(opts.cursor?.rewardId);
   });
 
-  it('converts a query params object into a GetRewardsOpts object.', () => {
+  it('converts a query params object into a GetContextualizedRewardsOpts object.', () => {
     const queryParams = createRandomQueryParamsObject();
-    const converted = QueryParamsConverter.toGetRewardsOpts(queryParams);
-    expect(getRewardsOptsSchema.safeParse(converted).success).toBe(true);
+    const converted =
+      QueryParamsConverter.toGetContextualizedRewardsOpts(queryParams);
+    expect(
+      getContextualizedRewardsOptsSchema.safeParse(converted).success,
+    ).toBe(true);
 
     for (const [key, value] of Object.entries(converted)) {
       if (['userCoordinates', 'cursor'].includes(key)) {

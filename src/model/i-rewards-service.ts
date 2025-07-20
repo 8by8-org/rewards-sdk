@@ -5,12 +5,14 @@ import type { RedemptionForumFilter } from './redemption-forum-filter';
 import type { SortOrder } from './sort-order';
 
 export interface IRewardsService {
-  getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]>;
+  getContextualizedRewards(
+    opts?: GetContextualizedRewardsOpts,
+  ): Promise<IContextualizedReward[]>;
   getAllRewardCategories(): Promise<string[]>;
   claimReward(rewardId: string): Promise<IVoucher[]>;
 }
 
-export interface GetRewardsOpts {
+export interface GetContextualizedRewardsOpts {
   redemptionForumFilter?: RedemptionForumFilter;
   sortOrder?: SortOrder;
   userCoordinates?: IPoint;
