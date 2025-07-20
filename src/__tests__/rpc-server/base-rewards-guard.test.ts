@@ -3,11 +3,8 @@ import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { UseGuards, type INestApplication } from '@nestjs/common';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
-import {
-  BaseRewardsGuard,
-  BaseRewardsController,
-  RewardsClient,
-} from '../../rpc';
+import { BaseRewardsGuard, BaseRewardsController } from '../../rpc-server';
+import { RewardsClient } from '../../rpc-client';
 import { Observable } from 'rxjs';
 import type { IContextualizedReward, IVoucher } from '../../model';
 import { API_ROUTES } from '../../constants';
@@ -49,7 +46,7 @@ describe('AppController (e2e)', () => {
   it('retrieves the path and apiKey from a request when invoked within an Express-based app.', async () => {
     const app: INestApplication = testingModule.createNestApplication();
     await app.init();
-    await app.listen(3000);
+    await app.listen(8888);
     const apiUrl = await app.getUrl();
     const apiKey = faker.string.alpha();
     const rewardsClient = new RewardsClient(apiUrl, apiKey);

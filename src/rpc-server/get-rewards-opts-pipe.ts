@@ -1,5 +1,5 @@
 import { Injectable, type PipeTransform } from '@nestjs/common';
-import { QueryParamsConverter } from './query-params-converter';
+import { QueryParamsConverter } from '../rpc-shared/query-params-converter';
 import type { GetRewardsOpts } from '../model';
 
 @Injectable()

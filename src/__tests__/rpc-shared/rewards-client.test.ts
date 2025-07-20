@@ -4,8 +4,8 @@ import qs from 'query-string';
 import {
   AuthorizationHeaderConverter,
   QueryParamsConverter,
-  RewardsClient,
-} from '../../rpc';
+} from '../../rpc-shared';
+import { RewardsClient } from '../../rpc-client';
 import {
   createRandomOptsObject,
   createRandomReward,

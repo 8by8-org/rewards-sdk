@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { createRandomQueryParamsObject } from '../../util/testing';
-import { GetRewardsOptsPipe } from '../../rpc';
+import { GetRewardsOptsPipe } from '../../rpc-server';
 import { getRewardsOptsSchema } from '../../schema';
 
 describe('GetRewardOptsPipe', () => {

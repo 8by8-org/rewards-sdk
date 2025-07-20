@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import qs from 'query-string';
-import { AuthorizationHeaderConverter } from './authorization-header-converter';
-import { QueryParamsConverter } from './query-params-converter';
+import { AuthorizationHeaderConverter } from '../rpc-shared/authorization-header-converter';
+import { QueryParamsConverter } from '../rpc-shared/query-params-converter';
 import { API_ROUTES } from '../constants';
 import { HttpError } from './http-error';
 import type {

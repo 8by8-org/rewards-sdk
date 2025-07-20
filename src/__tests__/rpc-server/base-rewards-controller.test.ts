@@ -1,7 +1,7 @@
 import { describe, beforeEach, vi, it, expect, type Mock } from 'vitest';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { BaseRewardsController } from '../../rpc';
+import { BaseRewardsController } from '../../rpc-server';
 import {
   RedemptionMethod,
   type GetRewardsOpts,

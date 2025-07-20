@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { faker } from '@faker-js/faker';
-import { AuthorizationHeaderConverter } from '../../rpc';
+import { AuthorizationHeaderConverter } from '../../rpc-shared';
 
 describe('AuthorizationHeaderConverter', () => {
   it('sets the value of the authorization header to the API key using the bearer scheme.', () => {

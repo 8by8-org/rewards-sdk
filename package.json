@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "description": "The software development kit for implementing the 8by8 rewards system.",
   "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./client": "./dist/rpc-client/index.js",
+    "./server": "./dist/rpc-server/index.js"
+  },
   "types": "./dist/index.d.ts",
   "scripts": {
     "format": "prettier . --write",

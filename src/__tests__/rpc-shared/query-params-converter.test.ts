@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { QueryParamsConverter } from '../../rpc';
+import { QueryParamsConverter } from '../../rpc-shared';
 import { getRewardsParamsSchema } from '../../schema';
 import { getRewardsOptsSchema } from '../../schema';
 import {

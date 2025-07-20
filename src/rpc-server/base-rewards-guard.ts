@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { AuthorizationHeaderConverter } from './authorization-header-converter';
+import { AuthorizationHeaderConverter } from '../rpc-shared/authorization-header-converter';
 
 interface ExpressRequest {
   headers: Record<string, string>;

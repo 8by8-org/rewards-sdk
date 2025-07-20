@@ -10,5 +10,9 @@
     "outDir": "dist",
     "declaration": true
   },
-  "files": ["src/index.ts"]
+  "files": [
+    "src/index.ts",
+    "src/rpc-client/index.ts",
+    "src/rpc-server/index.ts"
+  ]
 }
