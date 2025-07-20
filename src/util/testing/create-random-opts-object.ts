@@ -1,0 +1,36 @@
+import { faker } from "@faker-js/faker";
+import {
+  RedemptionForumFilter,
+  SortOrder,
+  type GetRewardsOpts,
+} from "../../model";
+import { fakeCategories } from "./fake-categories";
+
+export function createRandomOptsObject(
+  opts?: Partial<GetRewardsOpts>
+): GetRewardsOpts {
+  const randomOpts: GetRewardsOpts = {
+    redemptionForumFilter: faker.helpers.arrayElement(
+      Object.values(RedemptionForumFilter)
+    ),
+    sortOrder: faker.helpers.arrayElement(Object.values(SortOrder)),
+    userCoordinates: {
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    },
+    cursor: {
+      partnerName: faker.company.name(),
+      rewardId: faker.string.uuid(),
+    },
+    categories: faker.helpers.uniqueArray(
+      fakeCategories,
+      faker.number.int({ min: 0, max: fakeCategories.length })
+    ),
+    maxDistance: faker.number.int({ min: 1000, max: 20000 }),
+    ignoreMaxDistanceForOnlineRewards: faker.datatype.boolean(),
+    maxNumResults: faker.number.int({ min: 1, max: 100 }),
+    ...opts,
+  };
+
+  return randomOpts;
+}

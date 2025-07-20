@@ -52,13 +52,14 @@ export abstract class BaseRewardsGuard implements CanActivate {
         path: request.routeOptions.url,
         headers: request.headers,
       };
-    }
+    } /* v8 ignore start */
 
     throw new Error(
       "Received request was neither an Express request nor a Fastify request. " +
         "If you are using a custom platform, consider overriding the " +
         "getPathAndHeadersFromRequest method of the BaseRewardsGuard."
     );
+    /* v8 ignore stop */
   }
 
   protected isExpressRequest(request: unknown): request is ExpressRequest {
