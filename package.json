@@ -1,6 +1,6 @@
 {
   "name": "@8by8/rewards-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The software development kit for implementing the 8by8 rewards system.",
   "main": "./dist/index.js",
   "exports": {
@@ -22,6 +22,11 @@
   "keywords": [
     "8by8"
   ],
+  "homepage": "https://8by8.us",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/8by8-org/rewards-sdk"
+  },
   "contributors": [
     {
       "name": "Joseph Dvorak",
