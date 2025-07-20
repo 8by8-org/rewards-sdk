@@ -1,6 +1,6 @@
 export class AuthorizationHeaderConverter {
-  private static readonly AUTH_HEADER = "authorization";
-  private static readonly AUTH_SCHEME = "Bearer";
+  static readonly AUTH_HEADER = "authorization";
+  static readonly AUTH_SCHEME = "Bearer";
 
   static toHeaderFromAPIKey(apiKey: string): Record<string, string> {
     return {

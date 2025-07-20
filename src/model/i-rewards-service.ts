@@ -15,8 +15,8 @@ export interface GetRewardsOpts {
   sortOrder?: SortOrder;
   userCoordinates?: IPoint;
   cursor?: RewardsCursor;
-  maxDistance?: number;
   categories?: string[];
+  maxDistance?: number;
   ignoreMaxDistanceForOnlineRewards?: boolean;
   maxNumResults?: number;
 }

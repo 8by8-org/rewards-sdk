@@ -2,8 +2,8 @@ import { z } from "zod";
 import qs from "query-string";
 import { AuthorizationHeaderConverter } from "./authorization-header-converter";
 import { QueryParamsConverter } from "./query-params-converter";
-import { API_ROUTES } from "../constants/api-routes";
-import { HTTPError } from "./http-error";
+import { API_ROUTES } from "../constants";
+import { HttpError } from "./http-error";
 import type {
   GetRewardsOpts,
   IContextualizedReward,
@@ -18,7 +18,7 @@ export class RewardsClient implements IRewardsService {
   async getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]> {
     const queryParams = opts ? QueryParamsConverter.toQueryParams(opts) : {};
     const queryString = qs.stringify(queryParams);
-    const endPoint = `${this.apiUrl}/${API_ROUTES.getRewards}${queryString}`;
+    const endPoint = `${this.apiUrl}/${API_ROUTES.getRewards}?${queryString}`;
 
     const request: RequestInit = {
       method: "GET",
@@ -37,7 +37,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = contextualizedRewardSchema.array().parse(data);
       return parsed;
     } else {
-      throw new HTTPError(
+      throw new HttpError(
         "Failed to retrieve rewards.",
         response.status,
         response.statusText
@@ -65,7 +65,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = z.string().array().parse(data);
       return parsed;
     } else {
-      throw new HTTPError(
+      throw new HttpError(
         "Failed to retrieve reward categories.",
         response.status,
         response.statusText
@@ -79,12 +79,16 @@ export class RewardsClient implements IRewardsService {
     const request: RequestInit = {
       method: "POST",
       body: JSON.stringify({ rewardId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
     if (this.apiKey) {
-      request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
-        this.apiKey
-      );
+      request.headers = {
+        ...request.headers,
+        ...AuthorizationHeaderConverter.toHeaderFromAPIKey(this.apiKey),
+      };
     }
 
     const response = await fetch(endPoint, request);
@@ -94,7 +98,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = voucherSchema.array().parse(data);
       return parsed;
     } else {
-      throw new HTTPError(
+      throw new HttpError(
         "Failed to claim reward.",
         response.status,
         response.statusText

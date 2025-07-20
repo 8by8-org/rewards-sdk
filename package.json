@@ -2,20 +2,35 @@
   "name": "rewards-sdk",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@nestjs/common": "^11.1.5",
-    "typescript": "^5.8.3"
+    "@nestjs/testing": "^11.1.5",
+    "@types/node": "^24.0.15",
+    "babel-jest": "^30.0.4",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "query-string": "^9.2.2",
     "zod": "^4.0.5"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^11"
+  },
+  "peerDependenciesMeta": {
+    "@nestjs/common": {
+      "optional": true
+    }
   }
 }

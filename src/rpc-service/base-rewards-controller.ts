@@ -1,13 +1,12 @@
-import { Controller, Get, Post, Query, Body, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Query, Body } from "@nestjs/common";
 import { GetRewardsOptsPipe } from "./get-rewards-opts-pipe";
-import { API_ROUTES } from "../constants/api-routes";
+import { API_ROUTES } from "../constants";
 import type {
   GetRewardsOpts,
   IContextualizedReward,
   IRewardsService,
   IVoucher,
 } from "../model";
-import { BaseAuthGuard } from "./base-auth-guard";
 
 @Controller()
 export abstract class BaseRewardsController implements IRewardsService {
@@ -32,7 +31,6 @@ export abstract class BaseRewardsController implements IRewardsService {
   }
 
   @Post(API_ROUTES.claimReward)
-  @UseGuards(BaseAuthGuard)
   async claimReward(@Body("rewardId") rewardId: string): Promise<IVoucher[]> {
     const vouchers = await this._claimReward(rewardId);
     return vouchers;
