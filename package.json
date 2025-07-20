@@ -1,13 +1,13 @@
 {
-  "name": "rewards-sdk",
-  "version": "1.0.0",
+  "name": "@8by8/rewards-sdk",
+  "version": "0.0.0",
   "description": "The software development kit for implementing the 8by8 rewards system.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "test": "vitest --no-watch",
-    "lint": "eslint",
     "format": "prettier . --write",
+    "lint": "eslint .",
+    "test": "vitest --no-watch",
     "build": "tsc"
   },
   "keywords": [
