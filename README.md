@@ -38,7 +38,7 @@ rewardsClient.getRewards().then(rewards => {}).catch(e => {});
 async function loadRewards(opts?: GetRewardsOpts) {
   try {
     const rewards = await rewardsClient.getRewards(opts);
-	// do something with rewards
+    // do something with rewards
   } catch(e) {
   }
 }
