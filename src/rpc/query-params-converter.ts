@@ -1,10 +1,10 @@
-import { z } from "zod";
-import { getRewardsParamsSchema } from "../schema";
-import type { GetRewardsOpts } from "../model";
+import { z } from 'zod';
+import { getRewardsParamsSchema } from '../schema';
+import type { GetRewardsOpts } from '../model';
 
 export class QueryParamsConverter {
   static toQueryParams(
-    opts: GetRewardsOpts
+    opts: GetRewardsOpts,
   ): z.infer<typeof getRewardsParamsSchema> {
     const queryParams = {
       redemptionForumFilter: opts.redemptionForumFilter,
@@ -29,19 +29,22 @@ export class QueryParamsConverter {
       redemptionForumFilter: parsedQueryParams.redemptionForumFilter,
       sortOrder: parsedQueryParams.sortOrder,
       userCoordinates:
-        parsedQueryParams.userLatitude && parsedQueryParams.userLongitude
-          ? {
-              latitude: parsedQueryParams.userLatitude,
-              longitude: parsedQueryParams.userLongitude,
-            }
-          : undefined,
+        parsedQueryParams.userLatitude && parsedQueryParams.userLongitude ?
+          {
+            latitude: parsedQueryParams.userLatitude,
+            longitude: parsedQueryParams.userLongitude,
+          }
+        : undefined,
       cursor:
-        parsedQueryParams.partnerNameCursor && parsedQueryParams.rewardIdCursor
-          ? {
-              partnerName: parsedQueryParams.partnerNameCursor,
-              rewardId: parsedQueryParams.rewardIdCursor,
-            }
-          : undefined,
+        (
+          parsedQueryParams.partnerNameCursor &&
+          parsedQueryParams.rewardIdCursor
+        ) ?
+          {
+            partnerName: parsedQueryParams.partnerNameCursor,
+            rewardId: parsedQueryParams.rewardIdCursor,
+          }
+        : undefined,
       maxDistance: parsedQueryParams.maxDistance,
       categories: parsedQueryParams.categories,
       ignoreMaxDistanceForOnlineRewards:

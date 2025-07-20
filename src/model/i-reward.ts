@@ -1,4 +1,4 @@
-import type { RedemptionForum } from "./redemption-forum";
+import type { RedemptionForum } from './redemption-forum';
 
 export interface IReward {
   id: string;

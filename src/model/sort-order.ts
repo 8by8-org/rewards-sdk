@@ -1,4 +1,4 @@
 export enum SortOrder {
-  AtoZ = "a-z",
-  ZtoA = "z-a",
+  AtoZ = 'a-z',
+  ZtoA = 'z-a',
 }

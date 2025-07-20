@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { RedemptionForum } from "../model";
-import { maybeDate } from "./maybe-date";
-import { pointSchema } from "./point-schema";
+import { z } from 'zod';
+import { RedemptionForum } from '../model';
+import { maybeDate } from './maybe-date';
+import { pointSchema } from './point-schema';
 
 export const contextualizedRewardSchema = z.object({
   id: z.string(),

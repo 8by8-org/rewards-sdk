@@ -1,6 +1,6 @@
-import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
-import { Observable } from "rxjs";
-import { AuthorizationHeaderConverter } from "./authorization-header-converter";
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import { Observable } from 'rxjs';
+import { AuthorizationHeaderConverter } from './authorization-header-converter';
 
 interface ExpressRequest {
   headers: Record<string, string>;
@@ -23,11 +23,11 @@ export interface PathAndHeaders {
 export abstract class BaseRewardsGuard implements CanActivate {
   protected abstract _canActivate(
     path: string,
-    apiKey?: string
+    apiKey?: string,
   ): boolean | Promise<boolean> | Observable<boolean>;
 
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     const { path, headers } = this.getPathAndHeadersFromRequest(request);
@@ -55,44 +55,44 @@ export abstract class BaseRewardsGuard implements CanActivate {
     } /* v8 ignore start */
 
     throw new Error(
-      "Received request was neither an Express request nor a Fastify request. " +
-        "If you are using a custom platform, consider overriding the " +
-        "getPathAndHeadersFromRequest method of the BaseRewardsGuard."
+      'Received request was neither an Express request nor a Fastify request. ' +
+        'If you are using a custom platform, consider overriding the ' +
+        'getPathAndHeadersFromRequest method of the BaseRewardsGuard.',
     );
     /* v8 ignore stop */
   }
 
   protected isExpressRequest(request: unknown): request is ExpressRequest {
     return (
-      typeof request === "object" &&
+      typeof request === 'object' &&
       request !== null &&
-      "headers" in request &&
+      'headers' in request &&
       this.isRecord(request.headers) &&
-      "path" in request &&
-      typeof request.path === "string"
+      'path' in request &&
+      typeof request.path === 'string'
     );
   }
 
   protected isFastifyRequest(request: unknown): request is FastifyRequest {
     return (
-      typeof request === "object" &&
+      typeof request === 'object' &&
       request !== null &&
-      "headers" in request &&
+      'headers' in request &&
       this.isRecord(request.headers) &&
-      "routeOptions" in request &&
-      typeof request.routeOptions === "object" &&
+      'routeOptions' in request &&
+      typeof request.routeOptions === 'object' &&
       request.routeOptions !== null &&
-      "url" in request.routeOptions &&
-      typeof request.routeOptions.url === "string"
+      'url' in request.routeOptions &&
+      typeof request.routeOptions.url === 'string'
     );
   }
 
   protected isRecord(thing: unknown): thing is Record<string, string> {
     return (
-      typeof thing === "object" &&
+      typeof thing === 'object' &&
       thing !== null &&
       Object.entries(thing).every(([key, value]) => {
-        return typeof key === "string" && typeof value === "string";
+        return typeof key === 'string' && typeof value === 'string';
       })
     );
   }

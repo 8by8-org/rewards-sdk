@@ -1,4 +1,4 @@
-import type { RedemptionMethod } from "./redemption-method";
+import type { RedemptionMethod } from './redemption-method';
 
 export interface IBaseVoucher {
   redemptionMethod: RedemptionMethod;

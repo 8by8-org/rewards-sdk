@@ -1,17 +1,17 @@
-import { faker } from "@faker-js/faker";
+import { faker } from '@faker-js/faker';
 import {
   RedemptionForumFilter,
   SortOrder,
   type GetRewardsOpts,
-} from "../../model";
-import { fakeCategories } from "./fake-categories";
+} from '../../model';
+import { fakeCategories } from './fake-categories';
 
 export function createRandomOptsObject(
-  opts?: Partial<GetRewardsOpts>
+  opts?: Partial<GetRewardsOpts>,
 ): GetRewardsOpts {
   const randomOpts: GetRewardsOpts = {
     redemptionForumFilter: faker.helpers.arrayElement(
-      Object.values(RedemptionForumFilter)
+      Object.values(RedemptionForumFilter),
     ),
     sortOrder: faker.helpers.arrayElement(Object.values(SortOrder)),
     userCoordinates: {
@@ -24,7 +24,7 @@ export function createRandomOptsObject(
     },
     categories: faker.helpers.uniqueArray(
       fakeCategories,
-      faker.number.int({ min: 0, max: fakeCategories.length })
+      faker.number.int({ min: 0, max: fakeCategories.length }),
     ),
     maxDistance: faker.number.int({ min: 1000, max: 20000 }),
     ignoreMaxDistanceForOnlineRewards: faker.datatype.boolean(),

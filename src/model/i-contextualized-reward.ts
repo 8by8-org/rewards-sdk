@@ -1,5 +1,5 @@
-import type { RedemptionForum } from "./redemption-forum";
-import type { IPoint } from "./i-point";
+import type { RedemptionForum } from './redemption-forum';
+import type { IPoint } from './i-point';
 
 export interface IContextualizedReward {
   id: string;

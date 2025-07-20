@@ -1,22 +1,22 @@
-import { describe, beforeEach, vi, it, expect, type Mock } from "vitest";
-import { faker } from "@faker-js/faker";
-import { Test, TestingModule } from "@nestjs/testing";
-import { UseGuards, type INestApplication } from "@nestjs/common";
-import { FastifyAdapter } from "@nestjs/platform-fastify";
+import { describe, beforeEach, vi, it, expect, type Mock } from 'vitest';
+import { faker } from '@faker-js/faker';
+import { Test, TestingModule } from '@nestjs/testing';
+import { UseGuards, type INestApplication } from '@nestjs/common';
+import { FastifyAdapter } from '@nestjs/platform-fastify';
 import {
   BaseRewardsGuard,
   BaseRewardsController,
   RewardsClient,
-} from "../../rpc";
-import { Observable } from "rxjs";
+} from '../../rpc';
+import { Observable } from 'rxjs';
 import {
   GetRewardsOpts,
   type IContextualizedReward,
   type IVoucher,
-} from "../../model";
-import { API_ROUTES } from "../../constants";
+} from '../../model';
+import { API_ROUTES } from '../../constants';
 
-describe("AppController (e2e)", () => {
+describe('AppController (e2e)', () => {
   let testingModule: TestingModule;
   let canActivate: Mock;
 
@@ -26,7 +26,7 @@ describe("AppController (e2e)", () => {
     class DerivedRewardsGuard extends BaseRewardsGuard {
       protected _canActivate(
         path: string,
-        apiKey?: string
+        apiKey?: string,
       ): boolean | Promise<boolean> | Observable<boolean> {
         return canActivate(path, apiKey);
       }
@@ -35,7 +35,7 @@ describe("AppController (e2e)", () => {
     @UseGuards(DerivedRewardsGuard)
     class DerivedRewardsController extends BaseRewardsController {
       protected _getRewards(
-        _opts?: GetRewardsOpts
+        _opts?: GetRewardsOpts,
       ): Promise<IContextualizedReward[]> {
         return Promise.resolve([]);
       }
@@ -52,7 +52,7 @@ describe("AppController (e2e)", () => {
     }).compile();
   });
 
-  it("retrieves the path and apiKey from a request when invoked within an Express-based app.", async () => {
+  it('retrieves the path and apiKey from a request when invoked within an Express-based app.', async () => {
     const app: INestApplication = testingModule.createNestApplication();
     await app.init();
     await app.listen(3000);
@@ -61,15 +61,15 @@ describe("AppController (e2e)", () => {
     const rewardsClient = new RewardsClient(apiUrl, apiKey);
     await rewardsClient.getRewards();
     expect(canActivate).toHaveBeenCalledWith(
-      "/" + API_ROUTES.getRewards,
-      apiKey
+      '/' + API_ROUTES.getRewards,
+      apiKey,
     );
     await app.close();
   });
 
-  it("retrieves the path and apiKey from a request when invoked within a Fastify-based app.", async () => {
+  it('retrieves the path and apiKey from a request when invoked within a Fastify-based app.', async () => {
     const app: INestApplication = testingModule.createNestApplication(
-      new FastifyAdapter()
+      new FastifyAdapter(),
     );
     await app.init();
     await app.listen(3000);
@@ -78,8 +78,8 @@ describe("AppController (e2e)", () => {
     const rewardsClient = new RewardsClient(apiUrl, apiKey);
     await rewardsClient.getRewards();
     expect(canActivate).toHaveBeenCalledWith(
-      "/" + API_ROUTES.getRewards,
-      apiKey
+      '/' + API_ROUTES.getRewards,
+      apiKey,
     );
     await app.close();
   });

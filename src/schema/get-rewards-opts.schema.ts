@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { RedemptionForumFilter, SortOrder } from "../model";
-import { pointSchema } from "./point-schema";
-import { rewardsCursorSchema } from "./rewards-cursor-schema";
+import { z } from 'zod';
+import { RedemptionForumFilter, SortOrder } from '../model';
+import { pointSchema } from './point-schema';
+import { rewardsCursorSchema } from './rewards-cursor-schema';
 
 export const getRewardsOptsSchema = z.object({
   redemptionForumFilter: z.enum(RedemptionForumFilter).optional(),

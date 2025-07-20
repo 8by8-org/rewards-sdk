@@ -1,8 +1,8 @@
-import { faker } from "@faker-js/faker";
-import { RedemptionMethod, type IVoucher } from "../../model";
+import { faker } from '@faker-js/faker';
+import { RedemptionMethod, type IVoucher } from '../../model';
 
 export function createRandomVoucher(
-  redemptionMethod: RedemptionMethod
+  redemptionMethod: RedemptionMethod,
 ): IVoucher {
   switch (redemptionMethod) {
     case RedemptionMethod.Code:

@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { RedemptionForumFilter, SortOrder } from "../model";
+import { z } from 'zod';
+import { RedemptionForumFilter, SortOrder } from '../model';
 
 export const getRewardsParamsSchema = z.object({
   redemptionForumFilter: z.enum(RedemptionForumFilter).optional(),

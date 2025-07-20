@@ -1,6 +1,6 @@
-import { Injectable, type PipeTransform } from "@nestjs/common";
-import { QueryParamsConverter } from "./query-params-converter";
-import type { GetRewardsOpts } from "../model";
+import { Injectable, type PipeTransform } from '@nestjs/common';
+import { QueryParamsConverter } from './query-params-converter';
+import type { GetRewardsOpts } from '../model';
 
 @Injectable()
 export class GetRewardsOptsPipe

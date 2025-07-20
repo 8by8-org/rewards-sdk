@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { RedemptionMethod } from "../model";
-import { maybeDate } from "./maybe-date";
+import { z } from 'zod';
+import { RedemptionMethod } from '../model';
+import { maybeDate } from './maybe-date';
 
 export const baseVoucherSchema = z.object({
   redemptionMethod: z.enum(RedemptionMethod),

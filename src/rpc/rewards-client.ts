@@ -1,19 +1,22 @@
-import { z } from "zod";
-import qs from "query-string";
-import { AuthorizationHeaderConverter } from "./authorization-header-converter";
-import { QueryParamsConverter } from "./query-params-converter";
-import { API_ROUTES } from "../constants";
-import { HttpError } from "./http-error";
+import { z } from 'zod';
+import qs from 'query-string';
+import { AuthorizationHeaderConverter } from './authorization-header-converter';
+import { QueryParamsConverter } from './query-params-converter';
+import { API_ROUTES } from '../constants';
+import { HttpError } from './http-error';
 import type {
   GetRewardsOpts,
   IContextualizedReward,
   IRewardsService,
   IVoucher,
-} from "../model";
-import { contextualizedRewardSchema, voucherSchema } from "../schema";
+} from '../model';
+import { contextualizedRewardSchema, voucherSchema } from '../schema';
 
 export class RewardsClient implements IRewardsService {
-  constructor(private apiUrl: string, private apiKey?: string) {}
+  constructor(
+    private apiUrl: string,
+    private apiKey?: string,
+  ) {}
 
   async getRewards(opts?: GetRewardsOpts): Promise<IContextualizedReward[]> {
     const queryParams = opts ? QueryParamsConverter.toQueryParams(opts) : {};
@@ -21,12 +24,12 @@ export class RewardsClient implements IRewardsService {
     const endPoint = `${this.apiUrl}/${API_ROUTES.getRewards}?${queryString}`;
 
     const request: RequestInit = {
-      method: "GET",
+      method: 'GET',
     };
 
     if (this.apiKey) {
       request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
-        this.apiKey
+        this.apiKey,
       );
     }
 
@@ -38,9 +41,9 @@ export class RewardsClient implements IRewardsService {
       return parsed;
     } else {
       throw new HttpError(
-        "Failed to retrieve rewards.",
+        'Failed to retrieve rewards.',
         response.status,
-        response.statusText
+        response.statusText,
       );
     }
   }
@@ -49,12 +52,12 @@ export class RewardsClient implements IRewardsService {
     const endPoint = `${this.apiUrl}/${API_ROUTES.getAllRewardCategories}`;
 
     const request: RequestInit = {
-      method: "GET",
+      method: 'GET',
     };
 
     if (this.apiKey) {
       request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
-        this.apiKey
+        this.apiKey,
       );
     }
 
@@ -66,9 +69,9 @@ export class RewardsClient implements IRewardsService {
       return parsed;
     } else {
       throw new HttpError(
-        "Failed to retrieve reward categories.",
+        'Failed to retrieve reward categories.',
         response.status,
-        response.statusText
+        response.statusText,
       );
     }
   }
@@ -77,10 +80,10 @@ export class RewardsClient implements IRewardsService {
     const endPoint = `${this.apiUrl}/${API_ROUTES.claimReward}`;
 
     const request: RequestInit = {
-      method: "POST",
+      method: 'POST',
       body: JSON.stringify({ rewardId }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
@@ -99,9 +102,9 @@ export class RewardsClient implements IRewardsService {
       return parsed;
     } else {
       throw new HttpError(
-        "Failed to claim reward.",
+        'Failed to claim reward.',
         response.status,
-        response.statusText
+        response.statusText,
       );
     }
   }

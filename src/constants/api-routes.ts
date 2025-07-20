@@ -1,5 +1,5 @@
 export const API_ROUTES = {
-  getRewards: "getRewards",
-  getAllRewardCategories: "getAllRewardCategories",
-  claimReward: "claimReward",
+  getRewards: 'getRewards',
+  getAllRewardCategories: 'getAllRewardCategories',
+  claimReward: 'claimReward',
 };

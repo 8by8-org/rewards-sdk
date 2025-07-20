@@ -1,6 +1,6 @@
-import { faker } from "@faker-js/faker";
-import { RedemptionForum, type IContextualizedReward } from "../../model";
-import { fakeCategories } from "./fake-categories";
+import { faker } from '@faker-js/faker';
+import { RedemptionForum, type IContextualizedReward } from '../../model';
+import { fakeCategories } from './fake-categories';
 
 export function createRandomReward(opts: Partial<IContextualizedReward> = {}) {
   const reward: IContextualizedReward = {
@@ -25,14 +25,14 @@ export function createRandomReward(opts: Partial<IContextualizedReward> = {}) {
       faker.number.int({
         min: 1,
         max: 2,
-      })
+      }),
     ),
     categories: faker.helpers.uniqueArray(
       fakeCategories,
       faker.number.int({
         min: 0,
         max: fakeCategories.length,
-      })
+      }),
     ),
     expirationDate: faker.date.anytime(),
     ...opts,
