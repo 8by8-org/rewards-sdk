@@ -41,7 +41,7 @@ rewardsClient.getContextualizedRewards().then(rewards => {}).catch(e => {});
 async function loadRewards(opts?: GetContextualizedRewardsOpts) {
   try {
     const rewards = await rewardsClient.getContextualizedRewards(opts);
-	// do something with rewards
+	  // do something with rewards
   } catch(e) {
   }
 }
@@ -89,7 +89,7 @@ export class RewardsController extends BaseRewardsController {
   protected _getContextualizedRewards(
     opts?: GetContextualizedRewardsOpts,
   ): Promise<IContextualizedReward[]> {
-	// logic for retrieving rewards
+	  // logic for retrieving rewards
   }
 
   protected _getAllRewardCategories(): Promise<string[]> {
