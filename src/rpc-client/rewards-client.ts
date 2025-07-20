@@ -8,9 +8,14 @@ import type {
   GetContextualizedRewardsOpts,
   IContextualizedReward,
   IRewardsService,
+  IRewardWithPartnerData,
   IVoucher,
 } from '../model';
-import { contextualizedRewardSchema, voucherSchema } from '../schema';
+import {
+  contextualizedRewardSchema,
+  rewardWithPartnerDataSchema,
+  voucherSchema,
+} from '../schema';
 
 export class RewardsClient implements IRewardsService {
   constructor(
@@ -72,6 +77,36 @@ export class RewardsClient implements IRewardsService {
     } else {
       throw new HttpError(
         'Failed to retrieve reward categories.',
+        response.status,
+        response.statusText,
+      );
+    }
+  }
+
+  async getRewardWithPartnerData(
+    rewardId: string,
+  ): Promise<IRewardWithPartnerData> {
+    const endPoint = `${this.apiUrl}/${API_ROUTES.getRewardWithPartnerData}?rewardId=${rewardId}`;
+
+    const request: RequestInit = {
+      method: 'GET',
+    };
+
+    if (this.apiKey) {
+      request.headers = AuthorizationHeaderConverter.toHeaderFromAPIKey(
+        this.apiKey,
+      );
+    }
+
+    const response = await fetch(endPoint, request);
+
+    if (response.ok) {
+      const data = await response.json();
+      const parsed = rewardWithPartnerDataSchema.parse(data);
+      return parsed;
+    } else {
+      throw new HttpError(
+        'Failed to retrieve reward.',
         response.status,
         response.statusText,
       );

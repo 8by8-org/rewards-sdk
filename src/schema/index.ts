@@ -3,5 +3,6 @@ export { getContextualizedRewardsOptsSchema } from './get-contextualized-rewards
 export { getContextualizedRewardsParamsSchema } from './get-contextualized-rewards-params-schema';
 export { maybeDate } from './maybe-date';
 export { pointSchema } from './point-schema';
+export { rewardWithPartnerDataSchema } from './reward-with-partner-data-schema';
 export { rewardsCursorSchema } from './rewards-cursor-schema';
 export { voucherSchema } from './voucher-schema';

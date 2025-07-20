@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BaseRewardsController } from '../../rpc-server';
 import {
+  IRewardWithPartnerData,
   RedemptionMethod,
   type GetContextualizedRewardsOpts,
   type IContextualizedReward,
@@ -10,20 +11,23 @@ import {
 } from '../../model';
 import {
   createRandomOptsObject,
-  createRandomReward,
+  createRandomContextualizedReward,
   createRandomVoucher,
   fakeCategories,
+  createRandomRewardWithPartnerData,
 } from '../../util/testing';
 
 describe('BaseRewardsController', () => {
   let rewardsController: BaseRewardsController;
   let getContextualizedRewards: Mock;
   let getAllRewardCategories: Mock;
+  let getRewardWithPartnerData: Mock;
   let claimReward: Mock;
 
   beforeEach(async () => {
     getContextualizedRewards = vi.fn();
     getAllRewardCategories = vi.fn();
+    getRewardWithPartnerData = vi.fn();
     claimReward = vi.fn();
 
     class DerivedRewardsController extends BaseRewardsController {
@@ -37,6 +41,11 @@ describe('BaseRewardsController', () => {
       }
       protected _claimReward(rewardId: string): Promise<IVoucher[]> {
         return claimReward(rewardId);
+      }
+      protected _getRewardWithPartnerData(
+        rewardId: string,
+      ): Promise<IRewardWithPartnerData | null> {
+        return getRewardWithPartnerData(rewardId);
       }
     }
 
@@ -55,6 +64,15 @@ describe('BaseRewardsController', () => {
     expect(getContextualizedRewards).toHaveBeenCalledWith(opts);
   });
 
+  it('passes the rewardId to the _getRewardWithPartnerData method of the derived class.', async () => {
+    const rewardId = faker.string.uuid();
+    getRewardWithPartnerData.mockResolvedValueOnce(
+      createRandomRewardWithPartnerData({ id: rewardId }),
+    );
+    await rewardsController.getRewardWithPartnerData(rewardId);
+    expect(getRewardWithPartnerData).toHaveBeenCalledWith(rewardId);
+  });
+
   it('passes the rewardId to the _claimReward method of the derived class.', async () => {
     const rewardId = faker.string.uuid();
     await rewardsController.claimReward(rewardId);
@@ -65,7 +83,7 @@ describe('BaseRewardsController', () => {
     const expectedRewards: IContextualizedReward[] = [
       ...(function* () {
         for (let i = 0; i < 10; i++) {
-          yield createRandomReward();
+          yield createRandomContextualizedReward();
         }
       })(),
     ];
@@ -82,6 +100,15 @@ describe('BaseRewardsController', () => {
     expect(actualCategories).toEqual(expectedCategories);
   });
 
+  it('returns the reward returned by the _getRewardWithPartnerData method of the derived class.', async () => {
+    const expectedReward = createRandomRewardWithPartnerData();
+    getRewardWithPartnerData.mockResolvedValueOnce(expectedReward);
+    const actualReward = await rewardsController.getRewardWithPartnerData(
+      expectedReward.id,
+    );
+    expect(actualReward).toEqual(expectedReward);
+  });
+
   it('returns the vouchers returned by the claimReward method of the derived class.', async () => {
     const expectedVouchers: IVoucher[] = Object.values(RedemptionMethod).map(
       redemptionMethod => createRandomVoucher(redemptionMethod),
@@ -92,5 +119,12 @@ describe('BaseRewardsController', () => {
       faker.string.uuid(),
     );
     expect(actualVouchers).toEqual(expectedVouchers);
+  });
+
+  it('throws an error if no reward is found when getRewardWithPartnerData is called.', async () => {
+    getRewardWithPartnerData.mockResolvedValueOnce(null);
+    await expect(
+      rewardsController.getRewardWithPartnerData(faker.string.uuid()),
+    ).rejects.toThrow();
   });
 });

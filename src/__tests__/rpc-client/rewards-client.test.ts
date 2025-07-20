@@ -8,10 +8,11 @@ import {
 import { RewardsClient } from '../../rpc-client';
 import {
   createRandomOptsObject,
-  createRandomReward,
+  createRandomContextualizedReward,
   createRandomVoucher,
   fakeCategories,
   mockFetch,
+  createRandomRewardWithPartnerData,
 } from '../../util/testing';
 import { API_ROUTES } from '../../constants';
 import { RedemptionMethod, type IContextualizedReward } from '../../model';
@@ -34,7 +35,7 @@ describe('RewardsClient', () => {
     const expectedRewards: IContextualizedReward[] = [
       ...(function* () {
         for (let i = 0; i < 10; i++) {
-          yield createRandomReward();
+          yield createRandomContextualizedReward();
         }
       })(),
     ];
@@ -140,6 +141,69 @@ describe('RewardsClient', () => {
     const rewardsClient = new RewardsClient(faker.internet.url());
     await expect(rewardsClient.getAllRewardCategories()).rejects.toThrow();
   });
+
+  //
+  it('makes a GET request when getRewardWithPartnerData is called.', async () => {
+    const rewardId = faker.string.uuid();
+
+    const mock = mockFetch({
+      ok: true,
+      json: () =>
+        Promise.resolve(createRandomRewardWithPartnerData({ id: rewardId })),
+    });
+
+    const rewardsClient = new RewardsClient(faker.internet.url());
+    await rewardsClient.getRewardWithPartnerData(rewardId);
+    expect(mock).toHaveBeenCalledWith(expect.any(String), {
+      method: 'GET',
+    });
+  });
+
+  it('returns an IRewardWithPartnerData object when getRewardWithPartnerData successfully fetches such an object.', async () => {
+    const expectedReward = createRandomRewardWithPartnerData();
+
+    mockFetch({
+      ok: true,
+      json: () => Promise.resolve(expectedReward),
+    });
+
+    const rewardsClient = new RewardsClient(faker.internet.url());
+    const actualReward = await rewardsClient.getRewardWithPartnerData(
+      expectedReward.id,
+    );
+    expect(actualReward).toEqual(expectedReward);
+  });
+
+  it('includes the API key in the request headers when getRewardWithPartnerData is called.', async () => {
+    const rewardId = faker.string.uuid();
+
+    const mock = mockFetch({
+      ok: true,
+      json: () =>
+        Promise.resolve(createRandomRewardWithPartnerData({ id: rewardId })),
+    });
+
+    const apiKey = faker.string.alpha();
+    const rewardsClient = new RewardsClient(rewardId, apiKey);
+    await rewardsClient.getRewardWithPartnerData(faker.string.uuid());
+    expect(mock).toHaveBeenCalledWith(expect.any(String), {
+      method: expect.any(String),
+      headers: AuthorizationHeaderConverter.toHeaderFromAPIKey(apiKey),
+    });
+  });
+
+  it('throws an error when getRewardWithPartnerData is called and the response from the server is not ok.', async () => {
+    mockFetch({
+      ok: false,
+      status: 403,
+      statusText: 'Forbidden',
+    });
+    const rewardsClient = new RewardsClient(faker.internet.url());
+    await expect(
+      rewardsClient.getRewardWithPartnerData(faker.string.uuid()),
+    ).rejects.toThrow();
+  });
+  //
 
   it('makes a POST request when claimReward is called.', async () => {
     const mock = mockFetch({

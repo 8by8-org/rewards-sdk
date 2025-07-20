@@ -1,6 +1,7 @@
 export type { IContextualizedReward } from './i-contextualized-reward';
 export type { IPartner } from './i-partner';
 export type { IPoint } from './i-point';
+export type { IRewardWithPartnerData } from './i-reward-with-partner-data';
 export type { IReward } from './i-reward';
 export type {
   IRewardsService,

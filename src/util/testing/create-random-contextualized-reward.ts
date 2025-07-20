@@ -2,7 +2,9 @@ import { faker } from '@faker-js/faker';
 import { RedemptionForum, type IContextualizedReward } from '../../model';
 import { fakeCategories } from './fake-categories';
 
-export function createRandomReward(opts: Partial<IContextualizedReward> = {}) {
+export function createRandomContextualizedReward(
+  opts: Partial<IContextualizedReward> = {},
+) {
   const reward: IContextualizedReward = {
     id: faker.string.uuid(),
     shortDescription: faker.lorem.sentence(),

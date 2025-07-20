@@ -1,10 +1,18 @@
-import { Controller, Get, Post, Query, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Query,
+  Body,
+  NotFoundException,
+} from '@nestjs/common';
 import { GetContextualizedRewardsOptsPipe } from './get-contextualized-rewards-opts-pipe';
 import { API_ROUTES } from '../constants';
 import type {
   GetContextualizedRewardsOpts,
   IContextualizedReward,
   IRewardsService,
+  IRewardWithPartnerData,
   IVoucher,
 } from '../model';
 
@@ -14,6 +22,9 @@ export abstract class BaseRewardsController implements IRewardsService {
     opts?: GetContextualizedRewardsOpts,
   ): Promise<IContextualizedReward[]>;
   protected abstract _getAllRewardCategories(): Promise<string[]>;
+  protected abstract _getRewardWithPartnerData(
+    rewardId: string,
+  ): Promise<IRewardWithPartnerData | null>;
   protected abstract _claimReward(rewardId: string): Promise<IVoucher[]>;
 
   @Get(API_ROUTES.getContextualizedRewards)
@@ -29,6 +40,19 @@ export abstract class BaseRewardsController implements IRewardsService {
   async getAllRewardCategories(): Promise<string[]> {
     const categories = await this._getAllRewardCategories();
     return categories;
+  }
+
+  @Get(API_ROUTES.getRewardWithPartnerData)
+  async getRewardWithPartnerData(
+    @Query('rewardId') rewardId: string,
+  ): Promise<IRewardWithPartnerData> {
+    const reward = await this._getRewardWithPartnerData(rewardId);
+
+    if (!reward) {
+      throw new NotFoundException(`Failed to find reward with id ${rewardId}.`);
+    }
+
+    return reward;
   }
 
   @Post(API_ROUTES.claimReward)
