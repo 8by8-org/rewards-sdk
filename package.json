@@ -10,6 +10,10 @@
     "test": "vitest --no-watch",
     "build": "tsc"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "keywords": [
     "8by8"
   ],
