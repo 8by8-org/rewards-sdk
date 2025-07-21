@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { QueryParamsConverter } from '../../rpc-shared';
-import { getContextualizedRewardsParamsSchema } from '../../schema';
-import { getContextualizedRewardsOptsSchema } from '../../schema';
+import { GetContextualizedRewardsQueryParamsSchema } from '../../schema';
+import { GetContextualizedRewardsOptsSchema } from '../../schema';
 import {
   createRandomOptsObject,
   createRandomQueryParamsObject,
@@ -12,7 +12,7 @@ describe('QueryParamsConverter', () => {
     const opts = createRandomOptsObject();
     const converted = QueryParamsConverter.toQueryParams(opts);
     expect(
-      getContextualizedRewardsParamsSchema.safeParse(converted).success,
+      GetContextualizedRewardsQueryParamsSchema.safeParse(converted).success,
     ).toBe(true);
 
     for (const [key, value] of Object.entries(converted)) {
@@ -42,7 +42,7 @@ describe('QueryParamsConverter', () => {
     const converted =
       QueryParamsConverter.toGetContextualizedRewardsOpts(queryParams);
     expect(
-      getContextualizedRewardsOptsSchema.safeParse(converted).success,
+      GetContextualizedRewardsOptsSchema.safeParse(converted).success,
     ).toBe(true);
 
     for (const [key, value] of Object.entries(converted)) {

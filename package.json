@@ -6,7 +6,8 @@
   "exports": {
     ".": "./dist/index.js",
     "./client": "./dist/rpc-client/index.js",
-    "./server": "./dist/rpc-server/index.js"
+    "./server": "./dist/rpc-server/index.js",
+    "./testing": "./dist/util/testing/index.js"
   },
   "types": "./dist/index.d.ts",
   "scripts": {
@@ -55,10 +56,14 @@
     "zod": "^4.0.5"
   },
   "peerDependencies": {
-    "@nestjs/common": "^11"
+    "@nestjs/common": "^11",
+    "@faker-js/faker": "^9"
   },
   "peerDependenciesMeta": {
     "@nestjs/common": {
+      "optional": true
+    },
+    "@faker-js/faker": {
       "optional": true
     }
   }

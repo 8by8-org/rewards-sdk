@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { RedemptionForumFilter, SortOrder } from '../model';
+import { RedemptionForumFilter, SortOrder } from '../constants';
 
-export const getContextualizedRewardsParamsSchema = z.object({
+export const GetContextualizedRewardsQueryParamsSchema = z.object({
   redemptionForumFilter: z.enum(RedemptionForumFilter).optional(),
   sortOrder: z.enum(SortOrder).optional(),
   userLatitude: z.coerce.number().optional(),
@@ -13,3 +13,7 @@ export const getContextualizedRewardsParamsSchema = z.object({
   ignoreMaxDistanceForOnlineRewards: z.coerce.boolean().optional(),
   maxNumResults: z.coerce.number().optional(),
 });
+
+export type GetContextualizedRewardsQueryParams = z.infer<
+  typeof GetContextualizedRewardsQueryParamsSchema
+>;

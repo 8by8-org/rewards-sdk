@@ -1,8 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { RedemptionMethod, type IVoucher } from '../../model';
+import { RedemptionMethod } from '../../constants';
+import type { IVoucher } from '../../schema';
 
 export function createRandomVoucher(
-  redemptionMethod: RedemptionMethod,
+  redemptionMethod: RedemptionMethod = faker.helpers.arrayElement(
+    Object.values(RedemptionMethod),
+  ),
 ): IVoucher {
   switch (redemptionMethod) {
     case RedemptionMethod.Code:

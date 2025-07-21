@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { createRandomQueryParamsObject } from '../../util/testing';
 import { GetContextualizedRewardsOptsPipe } from '../../rpc-server';
-import { getContextualizedRewardsOptsSchema } from '../../schema';
+import { GetContextualizedRewardsOptsSchema } from '../../schema';
 
 describe('GetRewardOptsPipe', () => {
   it('transforms a query params object into a GetRewardOpts object.', () => {
@@ -9,7 +9,7 @@ describe('GetRewardOptsPipe', () => {
     const pipe = new GetContextualizedRewardsOptsPipe();
     const transformed = pipe.transform(queryParams);
     expect(
-      getContextualizedRewardsOptsSchema.safeParse(transformed).success,
+      GetContextualizedRewardsOptsSchema.safeParse(transformed).success,
     ).toBe(true);
   });
 });

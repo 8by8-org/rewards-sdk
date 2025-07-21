@@ -1,10 +1,7 @@
 import { faker } from '@faker-js/faker';
-import {
-  RedemptionForumFilter,
-  SortOrder,
-  type GetContextualizedRewardsOpts,
-} from '../../model';
+import { RedemptionForumFilter, SortOrder } from '../../constants';
 import { fakeCategories } from './fake-categories';
+import type { GetContextualizedRewardsOpts } from '../../schema';
 
 export function createRandomOptsObject(
   opts?: Partial<GetContextualizedRewardsOpts>,

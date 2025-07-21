@@ -10,7 +10,7 @@ import type {
   IContextualizedReward,
   IRewardWithPartnerData,
   IVoucher,
-} from '../../model';
+} from '../../schema';
 import { API_ROUTES } from '../../constants';
 import { createRandomRewardWithPartnerData } from '../../util/testing';
 

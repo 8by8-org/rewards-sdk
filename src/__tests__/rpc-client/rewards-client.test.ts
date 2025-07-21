@@ -14,8 +14,8 @@ import {
   mockFetch,
   createRandomRewardWithPartnerData,
 } from '../../util/testing';
-import { API_ROUTES } from '../../constants';
-import { RedemptionMethod, type IContextualizedReward } from '../../model';
+import { API_ROUTES, RedemptionMethod } from '../../constants';
+import type { IContextualizedReward } from '../../schema';
 
 describe('RewardsClient', () => {
   it('makes a GET request when getContextualizedRewards is called.', async () => {

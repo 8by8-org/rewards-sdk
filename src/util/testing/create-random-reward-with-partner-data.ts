@@ -1,34 +1,17 @@
 import { faker } from '@faker-js/faker';
-import { RedemptionForum, type IRewardWithPartnerData } from '../../model';
-import { fakeCategories } from './fake-categories';
+import { createRandomReward } from './create-random-reward';
+import type { IRewardWithPartnerData } from '../../schema';
 
 export function createRandomRewardWithPartnerData(
   opts: Partial<IRewardWithPartnerData> = {},
 ) {
   const reward: IRewardWithPartnerData = {
-    id: faker.string.uuid(),
-    shortDescription: faker.lorem.sentence(),
-    longDescription: faker.lorem.paragraph(),
-    partnerId: faker.lorem.slug(),
+    ...createRandomReward(),
+    partnerLogoUrl: faker.image.url({ width: 400, height: 400 }),
     partnerName: faker.company.name(),
     partnerDescription: faker.lorem.paragraph(),
     partnerWebsite: faker.internet.url(),
     partnerWhy8by8: faker.lorem.paragraph(),
-    redemptionForums: faker.helpers.uniqueArray(
-      Object.values(RedemptionForum),
-      faker.number.int({
-        min: 1,
-        max: 2,
-      }),
-    ),
-    categories: faker.helpers.uniqueArray(
-      fakeCategories,
-      faker.number.int({
-        min: 0,
-        max: fakeCategories.length,
-      }),
-    ),
-    expirationDate: faker.date.anytime(),
     ...opts,
   };
 

@@ -10,11 +10,11 @@ import type {
   IRewardsService,
   IRewardWithPartnerData,
   IVoucher,
-} from '../model';
+} from '../schema';
 import {
-  contextualizedRewardSchema,
-  rewardWithPartnerDataSchema,
-  voucherSchema,
+  IContextualizedRewardSchema,
+  IRewardWithPartnerDataSchema,
+  IVoucherSchema,
 } from '../schema';
 
 export interface RewardsClientConstructorParams {
@@ -52,7 +52,7 @@ export class RewardsClient implements IRewardsService {
 
     if (response.ok) {
       const data = await response.json();
-      const parsed = contextualizedRewardSchema.array().parse(data);
+      const parsed = IContextualizedRewardSchema.array().parse(data);
       return parsed;
     } else {
       throw new HttpError(response.statusText, response.status);
@@ -102,7 +102,7 @@ export class RewardsClient implements IRewardsService {
 
     if (response.ok) {
       const data = await response.json();
-      const parsed = rewardWithPartnerDataSchema.parse(data);
+      const parsed = IRewardWithPartnerDataSchema.parse(data);
       return parsed;
     } else {
       throw new HttpError(response.statusText, response.status);
@@ -131,7 +131,7 @@ export class RewardsClient implements IRewardsService {
 
     if (response.ok) {
       const data = await response.json();
-      const parsed = voucherSchema.array().parse(data);
+      const parsed = IVoucherSchema.array().parse(data);
       return parsed;
     } else {
       throw new HttpError(response.statusText, response.status);

@@ -1,6 +1,6 @@
 import { Injectable, type PipeTransform } from '@nestjs/common';
 import { QueryParamsConverter } from '../rpc-shared/query-params-converter';
-import type { GetContextualizedRewardsOpts } from '../model';
+import type { GetContextualizedRewardsOpts } from '../schema';
 
 @Injectable()
 export class GetContextualizedRewardsOptsPipe

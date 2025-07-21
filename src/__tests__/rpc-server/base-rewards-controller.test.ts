@@ -2,13 +2,13 @@ import { describe, beforeEach, vi, it, expect, type Mock } from 'vitest';
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
 import { BaseRewardsController } from '../../rpc-server';
-import {
+import { RedemptionMethod } from '../../constants';
+import type {
   IRewardWithPartnerData,
-  RedemptionMethod,
-  type GetContextualizedRewardsOpts,
-  type IContextualizedReward,
-  type IVoucher,
-} from '../../model';
+  GetContextualizedRewardsOpts,
+  IContextualizedReward,
+  IVoucher,
+} from '../../schema';
 import {
   createRandomOptsObject,
   createRandomContextualizedReward,

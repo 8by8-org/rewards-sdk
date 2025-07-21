@@ -1,13 +1,13 @@
 import { faker } from '@faker-js/faker';
 import { z } from 'zod';
-import { getContextualizedRewardsParamsSchema } from '../../schema';
-import { RedemptionForumFilter, SortOrder } from '../../model';
+import { RedemptionForumFilter, SortOrder } from '../../constants';
 import { fakeCategories } from './fake-categories';
+import type { GetContextualizedRewardsQueryParams } from '../../schema';
 
 export function createRandomQueryParamsObject(
-  opts?: Partial<z.infer<typeof getContextualizedRewardsParamsSchema>>,
-): z.infer<typeof getContextualizedRewardsParamsSchema> {
-  const queryParams: z.infer<typeof getContextualizedRewardsParamsSchema> = {
+  opts?: Partial<GetContextualizedRewardsQueryParams>,
+): GetContextualizedRewardsQueryParams {
+  const queryParams: GetContextualizedRewardsQueryParams = {
     redemptionForumFilter: faker.helpers.arrayElement(
       Object.values(RedemptionForumFilter),
     ),

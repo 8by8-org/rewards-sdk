@@ -14,7 +14,7 @@ import type {
   IRewardsService,
   IRewardWithPartnerData,
   IVoucher,
-} from '../model';
+} from '../schema';
 
 @Controller()
 export abstract class BaseRewardsController implements IRewardsService {

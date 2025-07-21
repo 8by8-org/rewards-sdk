@@ -1,8 +1,8 @@
-export { contextualizedRewardSchema } from './contextualized-reward-schema';
-export { getContextualizedRewardsOptsSchema } from './get-contextualized-rewards-opts.schema';
-export { getContextualizedRewardsParamsSchema } from './get-contextualized-rewards-params-schema';
-export { maybeDate } from './maybe-date';
-export { pointSchema } from './point-schema';
-export { rewardWithPartnerDataSchema } from './reward-with-partner-data-schema';
-export { rewardsCursorSchema } from './rewards-cursor-schema';
-export { voucherSchema } from './voucher-schema';
+export * from './get-contextualized-rewards-params-schema';
+export * from './i-contextualized-reward-schema';
+export * from './i-partner-schema';
+export * from './i-point-schema';
+export * from './i-reward-schema';
+export * from './i-reward-with-partner-data-schema';
+export * from './i-rewards-service';
+export * from './i-voucher-schema';
