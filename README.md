@@ -83,6 +83,7 @@ import { RewardsGuard } from './rewards-guard';
 import type {
   GetContextualizedRewardsOpts,
   IContextualizedReward,
+  IRewardWithPartnerData,
   IVoucher,
 } from '@8by8/rewards-sdk';
 
@@ -98,7 +99,7 @@ export class RewardsController extends BaseRewardsController {
     // logic for retrieving reward categories...
   }
 
-  protected __getRewardWithPartnerData(
+  protected _getRewardWithPartnerData(
     rewardId: string,
   ): Promise<IRewardWithPartnerData | null> {
     // logic for retrieving one reward with partner data...
