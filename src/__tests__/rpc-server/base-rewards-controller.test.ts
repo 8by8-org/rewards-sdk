@@ -15,7 +15,7 @@ import {
   createRandomVoucher,
   fakeCategories,
   createRandomRewardWithPartnerData,
-} from '../../util/testing';
+} from '../../testing';
 
 describe('BaseRewardsController', () => {
   let rewardsController: BaseRewardsController;

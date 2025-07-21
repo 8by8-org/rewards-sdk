@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomRewardWithPartnerData } from '../../../util/testing';
+import { createRandomRewardWithPartnerData } from '../../../testing';
 import { IRewardWithPartnerDataSchema } from '../../../schema';
 
 describe('createRandomRewardWithPartnerData', () => {

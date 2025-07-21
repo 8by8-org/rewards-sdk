@@ -1,21 +1,24 @@
 import { faker } from '@faker-js/faker';
-import { z } from 'zod';
-import { RedemptionForumFilter, SortOrder } from '../../constants';
+import { RedemptionForumFilter, SortOrder } from '../constants';
 import { fakeCategories } from './fake-categories';
-import type { GetContextualizedRewardsQueryParams } from '../../schema';
+import type { GetContextualizedRewardsOpts } from '../schema';
 
-export function createRandomQueryParamsObject(
-  opts?: Partial<GetContextualizedRewardsQueryParams>,
-): GetContextualizedRewardsQueryParams {
-  const queryParams: GetContextualizedRewardsQueryParams = {
+export function createRandomOptsObject(
+  opts?: Partial<GetContextualizedRewardsOpts>,
+): GetContextualizedRewardsOpts {
+  const randomOpts: GetContextualizedRewardsOpts = {
     redemptionForumFilter: faker.helpers.arrayElement(
       Object.values(RedemptionForumFilter),
     ),
     sortOrder: faker.helpers.arrayElement(Object.values(SortOrder)),
-    userLatitude: faker.location.latitude(),
-    userLongitude: faker.location.longitude(),
-    partnerNameCursor: faker.company.name(),
-    rewardIdCursor: faker.string.uuid(),
+    userCoordinates: {
+      latitude: faker.location.latitude(),
+      longitude: faker.location.longitude(),
+    },
+    cursor: {
+      partnerName: faker.company.name(),
+      rewardId: faker.string.uuid(),
+    },
     categories: faker.helpers.uniqueArray(
       fakeCategories,
       faker.number.int({ min: 0, max: fakeCategories.length }),
@@ -26,5 +29,5 @@ export function createRandomQueryParamsObject(
     ...opts,
   };
 
-  return queryParams;
+  return randomOpts;
 }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomQueryParamsObject } from '../../util/testing';
+import { createRandomQueryParamsObject } from '../../testing';
 import { GetContextualizedRewardsOptsPipe } from '../../rpc-server';
 import { GetContextualizedRewardsOptsSchema } from '../../schema';
 

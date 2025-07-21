@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomPoint } from '../../../util/testing';
+import { createRandomPoint } from '../../../testing';
 import { IPointSchema } from '../../../schema';
 
 describe('createRandomPoint', () => {

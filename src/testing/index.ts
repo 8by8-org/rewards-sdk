@@ -7,4 +7,3 @@ export { createRandomRewardWithPartnerData } from './create-random-reward-with-p
 export { createRandomReward } from './create-random-reward';
 export { createRandomVoucher } from './create-random-voucher';
 export { fakeCategories } from './fake-categories';
-export { mockFetch } from './mock-fetch';

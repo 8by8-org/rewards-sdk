@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { RedemptionMethod } from '../../constants';
-import type { IVoucher } from '../../schema';
+import { RedemptionMethod } from '../constants';
+import type { IVoucher } from '../schema';
 
 export function createRandomVoucher(
   redemptionMethod: RedemptionMethod = faker.helpers.arrayElement(

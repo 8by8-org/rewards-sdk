@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomVoucher } from '../../../util/testing';
+import { createRandomVoucher } from '../../../testing';
 import {
   IVoucherSchema,
   ICodeVoucherSchema,

@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import type { IPartner } from '../../schema';
+import type { IPartner } from '../schema';
 
 export function createRandomPartner(opts?: Partial<IPartner>): IPartner {
   const partner: IPartner = {

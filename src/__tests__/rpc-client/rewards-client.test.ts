@@ -6,15 +6,15 @@ import {
   QueryParamsConverter,
 } from '../../rpc-shared';
 import { RewardsClient } from '../../rpc-client';
+import { API_ROUTES, RedemptionMethod } from '../../constants';
 import {
   createRandomOptsObject,
   createRandomContextualizedReward,
   createRandomVoucher,
   fakeCategories,
-  mockFetch,
   createRandomRewardWithPartnerData,
-} from '../../util/testing';
-import { API_ROUTES, RedemptionMethod } from '../../constants';
+} from '../../testing';
+import { mockFetch } from '../../internal';
 import type { IContextualizedReward } from '../../schema';
 
 describe('RewardsClient', () => {

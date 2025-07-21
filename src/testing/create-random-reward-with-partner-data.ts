@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { createRandomReward } from './create-random-reward';
-import type { IRewardWithPartnerData } from '../../schema';
+import type { IRewardWithPartnerData } from '../schema';
 
 export function createRandomRewardWithPartnerData(
   opts: Partial<IRewardWithPartnerData> = {},

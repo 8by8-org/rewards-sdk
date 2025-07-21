@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomContextualizedReward } from '../../../util/testing';
+import { createRandomContextualizedReward } from '../../../testing';
 import { IContextualizedRewardSchema } from '../../../schema';
 
 describe('createRandomContextualizedReward', () => {

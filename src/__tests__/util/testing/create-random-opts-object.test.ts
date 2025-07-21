@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomOptsObject } from '../../../util/testing';
+import { createRandomOptsObject } from '../../../testing';
 import { GetContextualizedRewardsOptsSchema } from '../../../schema';
 
 describe('createRandomOptsObject', () => {

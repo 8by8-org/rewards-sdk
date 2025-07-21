@@ -1,4 +1,4 @@
-// eslint-disable-next
+// eslint-disable-next-line
 import type { IContextualizedReward } from '../schema/i-contextualized-reward-schema';
 
 /**

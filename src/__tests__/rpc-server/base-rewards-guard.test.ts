@@ -12,7 +12,7 @@ import type {
   IVoucher,
 } from '../../schema';
 import { API_ROUTES } from '../../constants';
-import { createRandomRewardWithPartnerData } from '../../util/testing';
+import { createRandomRewardWithPartnerData } from '../../testing';
 
 describe('AppController (e2e)', () => {
   let testingModule: TestingModule;
@@ -20,10 +20,7 @@ describe('AppController (e2e)', () => {
   const ipAddressPattern = /^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$/;
 
   beforeEach(async () => {
-    canActivate = vi.fn((path, ip, apiKey) => {
-      console.log(ip);
-      return true;
-    });
+    canActivate = vi.fn(() => true);
 
     class DerivedRewardsGuard extends BaseRewardsGuard {
       protected _canActivate(

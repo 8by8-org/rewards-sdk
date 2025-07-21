@@ -5,7 +5,7 @@ import { GetContextualizedRewardsOptsSchema } from '../../schema';
 import {
   createRandomOptsObject,
   createRandomQueryParamsObject,
-} from '../../util/testing';
+} from '../../testing';
 
 describe('QueryParamsConverter', () => {
   it('converts a GetContextualizedRewardsOpts object into a query params object.', () => {

@@ -14,6 +14,6 @@
     "src/index.ts",
     "src/rpc-client/index.ts",
     "src/rpc-server/index.ts",
-    "src/util/testing/index.ts"
+    "src/testing/index.ts"
   ]
 }

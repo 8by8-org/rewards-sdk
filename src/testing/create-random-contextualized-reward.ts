@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { createRandomRewardWithPartnerData } from './create-random-reward-with-partner-data';
 import { createRandomPoint } from './create-random-point';
-import type { IContextualizedReward } from '../../schema';
+import type { IContextualizedReward } from '../schema';
 
 export function createRandomContextualizedReward(
   opts: Partial<IContextualizedReward> = {},

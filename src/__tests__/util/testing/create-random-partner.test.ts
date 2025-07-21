@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createRandomPartner } from '../../../util/testing';
+import { createRandomPartner } from '../../../testing';
 import { IPartnerSchema } from '../../../schema';
 
 describe('createRandomPartner', () => {

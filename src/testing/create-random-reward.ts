@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
-import { RedemptionForum } from '../../constants';
+import { RedemptionForum } from '../constants';
 import { fakeCategories } from './fake-categories';
-import type { IReward } from '../../schema';
+import type { IReward } from '../schema';
 
 export function createRandomReward(opts: Partial<IReward> = {}) {
   const reward: IReward = {
