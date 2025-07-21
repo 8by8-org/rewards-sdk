@@ -17,11 +17,19 @@ import {
   voucherSchema,
 } from '../schema';
 
+export interface RewardsClientConstructorParams {
+  apiUrl: string;
+  apiKey?: string;
+}
+
 export class RewardsClient implements IRewardsService {
-  constructor(
-    private apiUrl: string,
-    private apiKey?: string,
-  ) {}
+  private apiUrl: string;
+  private apiKey?: string;
+
+  constructor({ apiUrl, apiKey }: RewardsClientConstructorParams) {
+    this.apiUrl = apiUrl;
+    this.apiKey = apiKey;
+  }
 
   async getContextualizedRewards(
     opts?: GetContextualizedRewardsOpts,
@@ -47,11 +55,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = contextualizedRewardSchema.array().parse(data);
       return parsed;
     } else {
-      throw new HttpError(
-        'Failed to retrieve rewards.',
-        response.status,
-        response.statusText,
-      );
+      throw new HttpError(response.statusText, response.status);
     }
   }
 
@@ -75,11 +79,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = z.string().array().parse(data);
       return parsed;
     } else {
-      throw new HttpError(
-        'Failed to retrieve reward categories.',
-        response.status,
-        response.statusText,
-      );
+      throw new HttpError(response.statusText, response.status);
     }
   }
 
@@ -105,11 +105,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = rewardWithPartnerDataSchema.parse(data);
       return parsed;
     } else {
-      throw new HttpError(
-        'Failed to retrieve reward.',
-        response.status,
-        response.statusText,
-      );
+      throw new HttpError(response.statusText, response.status);
     }
   }
 
@@ -138,11 +134,7 @@ export class RewardsClient implements IRewardsService {
       const parsed = voucherSchema.array().parse(data);
       return parsed;
     } else {
-      throw new HttpError(
-        'Failed to claim reward.',
-        response.status,
-        response.statusText,
-      );
+      throw new HttpError(response.statusText, response.status);
     }
   }
 }

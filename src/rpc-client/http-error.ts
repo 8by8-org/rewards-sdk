@@ -1,9 +1,8 @@
 export class HttpError extends Error {
-  constructor(
-    message: string,
-    public readonly statusCode: number,
-    public readonly statusText: string,
-  ) {
+  public readonly statusCode: number;
+
+  constructor(message: string, statusCode: number) {
     super(message);
+    this.statusCode = statusCode;
   }
 }

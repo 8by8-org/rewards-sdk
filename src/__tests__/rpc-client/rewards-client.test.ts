@@ -24,7 +24,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve([]),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await rewardsClient.getContextualizedRewards();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
@@ -45,7 +45,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve(expectedRewards),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     const actualRewards = await rewardsClient.getContextualizedRewards();
     expect(actualRewards).toEqual(expectedRewards);
   });
@@ -61,7 +61,7 @@ describe('RewardsClient', () => {
     const queryString = qs.stringify(queryObject);
     const apiUrl = faker.internet.url();
     const fullPath = `${apiUrl}/${API_ROUTES.getContextualizedRewards}?${queryString}`;
-    const rewardsClient = new RewardsClient(apiUrl);
+    const rewardsClient = new RewardsClient({ apiUrl });
     await rewardsClient.getContextualizedRewards(opts);
     expect(mock).toHaveBeenCalledWith(fullPath, expect.any(Object));
   });
@@ -73,7 +73,10 @@ describe('RewardsClient', () => {
     });
 
     const apiKey = faker.string.alpha();
-    const rewardsClient = new RewardsClient(faker.internet.url(), apiKey);
+    const rewardsClient = new RewardsClient({
+      apiUrl: faker.internet.url(),
+      apiKey,
+    });
     await rewardsClient.getContextualizedRewards();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
@@ -87,7 +90,7 @@ describe('RewardsClient', () => {
       status: 403,
       statusText: 'Forbidden',
     });
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await expect(rewardsClient.getContextualizedRewards()).rejects.toThrow();
   });
 
@@ -97,7 +100,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve([]),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await rewardsClient.getAllRewardCategories();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
@@ -112,7 +115,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve(fakeCategories),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     const actualCategories = await rewardsClient.getAllRewardCategories();
     expect(actualCategories).toEqual(expectedCategories);
   });
@@ -124,7 +127,10 @@ describe('RewardsClient', () => {
     });
 
     const apiKey = faker.string.alpha();
-    const rewardsClient = new RewardsClient(faker.internet.url(), apiKey);
+    const rewardsClient = new RewardsClient({
+      apiUrl: faker.internet.url(),
+      apiKey,
+    });
     await rewardsClient.getAllRewardCategories();
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: expect.any(String),
@@ -138,7 +144,7 @@ describe('RewardsClient', () => {
       status: 403,
       statusText: 'Forbidden',
     });
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await expect(rewardsClient.getAllRewardCategories()).rejects.toThrow();
   });
 
@@ -152,7 +158,7 @@ describe('RewardsClient', () => {
         Promise.resolve(createRandomRewardWithPartnerData({ id: rewardId })),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await rewardsClient.getRewardWithPartnerData(rewardId);
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: 'GET',
@@ -167,7 +173,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve(expectedReward),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     const actualReward = await rewardsClient.getRewardWithPartnerData(
       expectedReward.id,
     );
@@ -184,7 +190,10 @@ describe('RewardsClient', () => {
     });
 
     const apiKey = faker.string.alpha();
-    const rewardsClient = new RewardsClient(rewardId, apiKey);
+    const rewardsClient = new RewardsClient({
+      apiUrl: faker.internet.url(),
+      apiKey,
+    });
     await rewardsClient.getRewardWithPartnerData(faker.string.uuid());
     expect(mock).toHaveBeenCalledWith(expect.any(String), {
       method: expect.any(String),
@@ -198,7 +207,7 @@ describe('RewardsClient', () => {
       status: 403,
       statusText: 'Forbidden',
     });
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await expect(
       rewardsClient.getRewardWithPartnerData(faker.string.uuid()),
     ).rejects.toThrow();
@@ -211,7 +220,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve([]),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await rewardsClient.claimReward(faker.string.uuid());
     expect(mock).toHaveBeenCalledWith(
       expect.any(String),
@@ -234,7 +243,7 @@ describe('RewardsClient', () => {
       json: () => Promise.resolve(expectedVouchers),
     });
 
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     const actualVouchers = await rewardsClient.claimReward(faker.string.uuid());
     expect(actualVouchers).toEqual(expectedVouchers);
   });
@@ -246,7 +255,7 @@ describe('RewardsClient', () => {
     });
 
     const rewardId = faker.string.uuid();
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await rewardsClient.claimReward(rewardId);
     expect(mock).toHaveBeenCalledWith(
       expect.any(String),
@@ -263,7 +272,10 @@ describe('RewardsClient', () => {
     });
 
     const apiKey = faker.string.alpha();
-    const rewardsClient = new RewardsClient(faker.internet.url(), apiKey);
+    const rewardsClient = new RewardsClient({
+      apiUrl: faker.internet.url(),
+      apiKey,
+    });
     await rewardsClient.claimReward(faker.string.uuid());
     expect(mock).toHaveBeenCalledWith(
       expect.any(String),
@@ -282,7 +294,7 @@ describe('RewardsClient', () => {
       status: 403,
       statusText: 'Forbidden',
     });
-    const rewardsClient = new RewardsClient(faker.internet.url());
+    const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
     await expect(
       rewardsClient.claimReward(faker.string.uuid()),
     ).rejects.toThrow();

@@ -5,6 +5,7 @@ import { AuthorizationHeaderConverter } from '../rpc-shared/authorization-header
 interface ExpressRequest {
   headers: Record<string, string>;
   path: string;
+  ip: string;
 }
 
 interface FastifyRequest {
@@ -12,38 +13,42 @@ interface FastifyRequest {
   routeOptions: {
     url: string;
   };
+  ip: string;
 }
 
-export interface PathAndHeaders {
+interface RequestInformation {
   path: string;
   headers: Record<string, string>;
+  ip: string;
 }
 
 @Injectable()
 export abstract class BaseRewardsGuard implements CanActivate {
   protected abstract _canActivate(
     path: string,
+    ip: string,
     apiKey?: string,
   ): boolean | Promise<boolean> | Observable<boolean>;
 
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest<Request>();
-    const { path, headers } = this.getPathAndHeadersFromRequest(request);
+    const request = context.switchToHttp().getRequest();
+    const { path, headers, ip } = this.extractRequestInformation(request);
     const apiKey = this.getAPIKeyFromHeaders(headers);
-    return this._canActivate(path, apiKey);
+    return this._canActivate(path, ip, apiKey);
   }
 
   protected getAPIKeyFromHeaders(headers: Record<string, string>) {
     return AuthorizationHeaderConverter.toAPIKeyFromHeaders(headers);
   }
 
-  protected getPathAndHeadersFromRequest(request: unknown): PathAndHeaders {
+  protected extractRequestInformation(request: unknown): RequestInformation {
     if (this.isExpressRequest(request)) {
       return {
         path: request.path,
         headers: request.headers,
+        ip: request.ip,
       };
     }
 
@@ -51,6 +56,7 @@ export abstract class BaseRewardsGuard implements CanActivate {
       return {
         path: request.routeOptions.url,
         headers: request.headers,
+        ip: request.ip,
       };
     } /* v8 ignore start */
 
@@ -69,7 +75,9 @@ export abstract class BaseRewardsGuard implements CanActivate {
       'headers' in request &&
       this.isRecord(request.headers) &&
       'path' in request &&
-      typeof request.path === 'string'
+      typeof request.path === 'string' &&
+      'ip' in request &&
+      typeof request.ip === 'string'
     );
   }
 
@@ -83,7 +91,9 @@ export abstract class BaseRewardsGuard implements CanActivate {
       typeof request.routeOptions === 'object' &&
       request.routeOptions !== null &&
       'url' in request.routeOptions &&
-      typeof request.routeOptions.url === 'string'
+      typeof request.routeOptions.url === 'string' &&
+      'ip' in request &&
+      typeof request.ip === 'string'
     );
   }
 

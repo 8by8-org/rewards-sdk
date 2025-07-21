@@ -25,10 +25,10 @@ npm install @8by8/rewards-sdk
 import { RewardsClient } from '@8by8/rewards-sdk/client';
 import type { GetContextualizedRewardsOpts } from '@8by8/rewards-sdk';
 
-const rewardsClient = new RewardsClient(
-  process.env.REWARDS_API_URL,
-  process.env.REWARDS_API_KEY // optional, use only from server-side code
-);
+const rewardsClient = new RewardsClient({
+  apiUrl: process.env.REWARDS_API_URL,
+  apiKey: process.env.REWARDS_API_KEY // optional, use only from server-side code
+});
 
 /*
   getContextualizedRewards can accept an `opts` parameter of type
@@ -41,14 +41,16 @@ rewardsClient.getContextualizedRewards().then(rewards => {}).catch(e => {});
 async function loadRewards(opts?: GetContextualizedRewardsOpts) {
   try {
     const rewards = await rewardsClient.getContextualizedRewards(opts);
-	  // do something with rewards
+	// do something with rewards...
   } catch(e) {
   }
 }
 ```
 
 The rewards client also exposes methods for retrieving reward categories
-(`getAllRewardCategories`), and claiming a reward (`claimReward`).
+(`getAllRewardCategories`), retrieving information about one reward and the
+partner offering it (`getRewardWithPartnerData`), and claiming a reward
+(`claimReward`).
 
 ### Server-side
 
@@ -65,10 +67,10 @@ import { Observable } from 'rxjs';
 export class RewardsGuard extends BaseRewardsGuard {
   protected _canActivate(
     path: string,
+    ip: string,
     apiKey?: string,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    // determine whether to allow access to the route depending on the
-    // path and the api key
+    // logic for determining whether or not to allow access...
   }
 }
 ```
@@ -89,15 +91,21 @@ export class RewardsController extends BaseRewardsController {
   protected _getContextualizedRewards(
     opts?: GetContextualizedRewardsOpts,
   ): Promise<IContextualizedReward[]> {
-	  // logic for retrieving rewards
+	// logic for retrieving rewards...
   }
 
   protected _getAllRewardCategories(): Promise<string[]> {
-    // logic for retrieving reward categories
+    // logic for retrieving reward categories...
+  }
+
+  protected __getRewardWithPartnerData(
+    rewardId: string,
+  ): Promise<IRewardWithPartnerData | null> {
+    // logic for retrieving one reward with partner data...
   }
 
   protected _claimReward(rewardId: string): Promise<IVoucher[]> {
-    // logic for claiming a reward
+    // logic for claiming a reward...
   }
 }
 ```
