@@ -3,7 +3,7 @@
 This is the software development kit for implementing the 8by8 Rewards System.
 
 The package provides shared types, a client stub for the rewards system RPC, a
-NestJS controller than can be derived from to implement the server, and more.
+[NestJS](https://nestjs.com/) controller than can be derived from to implement the server, and more.
 
 ## Project Requirements
 
