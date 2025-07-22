@@ -1,6 +1,8 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AuthorizationHeaderConverter } from '../rpc-shared/authorization-header-converter';
+// eslint-disable-next-line
+import { BaseRewardsController } from './base-rewards-controller';
 
 interface ExpressRequest {
   headers: Record<string, string>;
@@ -22,8 +24,24 @@ interface RequestInformation {
   ip: string;
 }
 
+/**
+ * A guard that can be extended to implement route guards on a class extending
+ * the {@link BaseRewardsController} class.
+ */
 @Injectable()
 export abstract class BaseRewardsGuard implements CanActivate {
+  /**
+   * The `_canActivate` method will receive the path of the route to which the
+   * request was made (for instance, "/getContexualizedRewards"), the ip
+   * address that the request originated from, and, if present, an API key.
+   *
+   * The method should determine whether or not to allow the request based on
+   * these parameters.
+   *
+   * @param path - The path of the route to which the request was made.
+   * @param ip - The IP address from which the request originated.
+   * @param apiKey - An API key, if present.
+   */
   protected abstract _canActivate(
     path: string,
     ip: string,

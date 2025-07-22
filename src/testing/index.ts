@@ -6,4 +6,4 @@ export { createRandomQueryParamsObject } from './create-random-query-params-obje
 export { createRandomRewardWithPartnerData } from './create-random-reward-with-partner-data';
 export { createRandomReward } from './create-random-reward';
 export { createRandomVoucher } from './create-random-voucher';
-export { fakeCategories } from './fake-categories';
+export { FAKE_CATEGORIES as fakeCategories } from './fake-categories';

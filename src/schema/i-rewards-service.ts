@@ -10,8 +10,9 @@ import type { IContextualizedReward } from './i-contextualized-reward-schema';
  */
 export interface IRewardsService {
   /**
-   * Retrieves an array of {@link IContextualizedReward}s, depending on the
-   * opts it receives.
+   * Retrieves a list of {@link IContextualizedReward}s, filtering, sorting,
+   * abridging, and further contextualizing its results according to the
+   * provided options.
    *
    * @param opts - {@link GetContextualizedRewardsOpts}
    */
@@ -20,8 +21,8 @@ export interface IRewardsService {
   ): Promise<IContextualizedReward[]>;
 
   /**
-   * Retrieves an array of all distinct reward categories represented in the
-   * rewards system.
+   * Retrieves an array of all distinct reward categories present in the rewards
+   * system.
    */
   getAllRewardCategories(): Promise<string[]>;
 

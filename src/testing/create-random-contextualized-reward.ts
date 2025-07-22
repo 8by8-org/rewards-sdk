@@ -3,6 +3,16 @@ import { createRandomRewardWithPartnerData } from './create-random-reward-with-p
 import { createRandomPoint } from './create-random-point';
 import type { IContextualizedReward } from '../schema';
 
+/**
+ * Creates a random {@link IContextualizedReward} object. Useful for development
+ * and testing.
+ *
+ * @param opts - A partial {@link IContextualizedReward} object. Allows the
+ * developer to override specific random values with hard-coded ones. If
+ * omitted, all values will be random.
+ *
+ * @returns An {@link IContextualizedReward} object.
+ */
 export function createRandomContextualizedReward(
   opts: Partial<IContextualizedReward> = {},
 ) {

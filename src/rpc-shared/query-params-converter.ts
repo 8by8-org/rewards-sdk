@@ -4,7 +4,18 @@ import {
   type GetContextualizedRewardsOpts,
 } from '../schema';
 
+/**
+ * A static class that can convert {@link GetContextualizedRewardsOpts} to
+ * {@link GetContextualizedRewardsQueryParams}, and vice-versa.
+ */
 export class QueryParamsConverter {
+  /**
+   * Converts {@link GetContextualizedRewardsOpts} to
+   * {@link GetContextualizedRewardsQueryParams}. Primarily for client-side use.
+   *
+   * @param opts - The options object to convert.
+   * @returns A {@link GetContextualizedRewardsQueryParams} object.
+   */
   static toQueryParams(
     opts: GetContextualizedRewardsOpts,
   ): GetContextualizedRewardsQueryParams {
@@ -24,6 +35,13 @@ export class QueryParamsConverter {
     return queryParams;
   }
 
+  /**
+   * Converts {@link GetContextualizedRewardsQueryParams} to
+   * {@link GetContextualizedRewardsOpts}. Primarily for server-side use.
+   *
+   * @param queryParams - The query params object to convert.
+   * @returns A {@link GetContextualizedRewardsOpts} object.
+   */
   static toGetContextualizedRewardsOpts(
     queryParams: object,
   ): GetContextualizedRewardsOpts {

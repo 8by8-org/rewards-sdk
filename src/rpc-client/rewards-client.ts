@@ -17,11 +17,26 @@ import {
   IVoucherSchema,
 } from '../schema';
 
+/**
+ * An object provided to the constructor of the {@link RewardsClient} to
+ * configure a new instance.
+ */
 export interface RewardsClientConstructorParams {
+  /**
+   * The url of the rewards system server that the client should talk to.
+   */
   apiUrl: string;
+  /**
+   * The API key that the client should provide to the server via headers.
+   * This should be omitted if the client is instantiated in the front-end of
+   * an application.
+   */
   apiKey?: string;
 }
 
+/**
+ * A client that is preconfigured to talk to a rewards system server.
+ */
 export class RewardsClient implements IRewardsService {
   private apiUrl: string;
   private apiKey?: string;

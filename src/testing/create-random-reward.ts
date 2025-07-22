@@ -1,8 +1,17 @@
 import { faker } from '@faker-js/faker';
 import { RedemptionForum } from '../constants';
-import { fakeCategories } from './fake-categories';
+import { FAKE_CATEGORIES } from './fake-categories';
 import type { IReward } from '../schema';
 
+/**
+ * Creates a random {@link IReward} object. Useful development and testing.
+ *
+ * @param opts - A partial {@link IReward} object. Allows the developer to
+ * override specific random values with hard-coded ones. If omitted, all values
+ * will be random.
+ *
+ * @returns An {@link IReward} object.
+ */
 export function createRandomReward(opts: Partial<IReward> = {}) {
   const reward: IReward = {
     id: faker.string.uuid(),
@@ -17,10 +26,10 @@ export function createRandomReward(opts: Partial<IReward> = {}) {
       }),
     ),
     categories: faker.helpers.uniqueArray(
-      fakeCategories,
+      FAKE_CATEGORIES,
       faker.number.int({
         min: 0,
-        max: fakeCategories.length,
+        max: FAKE_CATEGORIES.length,
       }),
     ),
     expirationDate: faker.date.anytime(),

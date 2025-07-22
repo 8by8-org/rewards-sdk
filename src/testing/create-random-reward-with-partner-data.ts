@@ -2,6 +2,16 @@ import { faker } from '@faker-js/faker';
 import { createRandomReward } from './create-random-reward';
 import type { IRewardWithPartnerData } from '../schema';
 
+/**
+ * Creates a random {@link IRewardWithPartnerData} object. Useful development
+ * and testing.
+ *
+ * @param opts - A partial {@link IRewardWithPartnerData} object. Allows the
+ * developer to override specific random values with hard-coded ones. If
+ * omitted, all values will be random.
+ *
+ * @returns An {@link IRewardWithPartnerData} object.
+ */
 export function createRandomRewardWithPartnerData(
   opts: Partial<IRewardWithPartnerData> = {},
 ) {

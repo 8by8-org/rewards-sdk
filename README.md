@@ -127,7 +127,10 @@ Functions for creating random instances of exported interfaces are available
 through the testing module, like so:
 
 ```
-import { createRandomContextualizedReward } from '@8by8/rewards-sdk/testing';
+import {
+  createRandomContextualizedReward,
+  FAKE_CATEGORIES
+} from '@8by8/rewards-sdk/testing';
 ```
 
 These can be useful for developing frontend components that expect instances of
