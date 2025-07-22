@@ -13,7 +13,7 @@ import {
   createRandomOptsObject,
   createRandomContextualizedReward,
   createRandomVoucher,
-  fakeCategories,
+  FAKE_CATEGORIES,
   createRandomRewardWithPartnerData,
 } from '../../testing';
 
@@ -94,7 +94,7 @@ describe('BaseRewardsController', () => {
   });
 
   it('returns the categories returned by the _getAllRewardCategories method of the derived class.', async () => {
-    const expectedCategories = fakeCategories;
+    const expectedCategories = FAKE_CATEGORIES;
     getAllRewardCategories.mockResolvedValueOnce(expectedCategories);
     const actualCategories = await rewardsController.getAllRewardCategories();
     expect(actualCategories).toEqual(expectedCategories);

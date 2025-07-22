@@ -1,7 +1,7 @@
 import { Injectable, type PipeTransform } from '@nestjs/common';
 import { QueryParamsConverter } from '../rpc-shared/query-params-converter';
 import type { GetContextualizedRewardsOpts } from '../schema';
-// eslint-ignore-next-line
+// eslint-disable-next-line
 import { IRewardsService } from '../schema';
 
 /**

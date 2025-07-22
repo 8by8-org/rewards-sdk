@@ -11,7 +11,7 @@ import {
   createRandomOptsObject,
   createRandomContextualizedReward,
   createRandomVoucher,
-  fakeCategories,
+  FAKE_CATEGORIES,
   createRandomRewardWithPartnerData,
 } from '../../testing';
 import { mockFetch } from '../../internal';
@@ -108,11 +108,11 @@ describe('RewardsClient', () => {
   });
 
   it('returns an array of categories when getAllRewardCategories successfully fetches such an array.', async () => {
-    const expectedCategories = fakeCategories;
+    const expectedCategories = FAKE_CATEGORIES;
 
     mockFetch({
       ok: true,
-      json: () => Promise.resolve(fakeCategories),
+      json: () => Promise.resolve(FAKE_CATEGORIES),
     });
 
     const rewardsClient = new RewardsClient({ apiUrl: faker.internet.url() });
